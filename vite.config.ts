@@ -1,10 +1,11 @@
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { visualizer } from 'rollup-plugin-visualizer';
+import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), visualizer()],
   server: {
     port: 3000,
   },
@@ -33,20 +34,16 @@ export default defineConfig({
               return 'vendor_draft';
             } else if (id.includes('chakra-ui')) {
               return 'vendor_chakra';
-            } else if (id.includes('axios')) {
-              return 'vendor_axios';
             } else if (id.includes('framer-motion')) {
               return 'vendor_framer';
-            } else if (id.includes('socket.io')) {
-              return 'vendor_socketio';
-            } else if (id.includes('lodash')) {
-              return 'vendor_lodash';
-            } else if (id.includes('react-icons')) {
-              return 'vendor_react-icons';
-            } else if (id.includes('emotion')) {
-              return 'vendor_emotion';
             } else if (id.includes('date-fns')) {
               return 'vendor_date-fns';
+            } else if (id.includes('auth0')) {
+              return 'vendor_auth0';
+            } else if (id.includes('immutable')) {
+              return 'vendor_immutable';
+            } else if (id.includes('i18next')) {
+              return 'vendor_i18next';
             }
 
             return 'vendor';
