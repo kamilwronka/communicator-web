@@ -1,0 +1,29 @@
+{
+  "form": {
+    "profilePicture": {
+      "tooltip": "Upload profile picture"
+    },
+    "username": {
+      "label": "Username",
+      "placeholder": "Type your username here",
+      "hint": "Use your favorite username, if you want, you can change it later.",
+      "error": {
+        "required": "Username is required",
+        "tooLong": "Username has to have less than 30 characters",
+        "tooShort": "Username has to have at least 3 characters"
+      }
+    },
+    "submitButton": {
+      "continue": "Continue",
+      "submit": "Yay!"
+    },
+    "summary": {
+      "heading": "Thank you!",
+      "text": "Now you can use your account."
+    }
+  },
+  "header": {
+    "main": "Create profile",
+    "sub": "Before you start, you need to set up your profile"
+  }
+}

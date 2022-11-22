@@ -1,0 +1,8 @@
+{
+  "errors": {
+    "unexpectedError": "Unexpected error has occured"
+  },
+  "cancel": "Cancel",
+  "continue": "Continue",
+  "create": "Create"
+}

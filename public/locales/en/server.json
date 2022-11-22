@@ -1,0 +1,46 @@
+{
+  "forms": {
+    "createChannel": {
+      "type": {
+        "text": {
+          "header": "Text",
+          "description": "Send messages, images, GIFs, emoji and opinions"
+        },
+        "voice": {
+          "header": "Voice",
+          "description": "Hang out together with voice chat"
+        }
+      },
+      "name": {
+        "label": "Channel name",
+        "helperText": "Type in your channel name. Don't worry, you can change it later.",
+        "error": {
+          "required": "Channel name is required",
+          "tooLong": "Channel name must have less than 30 characters",
+          "tooShort": "Channel name must have at least 3 characters"
+        },
+        "placeholder": "New Channel"
+      }
+    },
+    "createCategory": {
+      "name": {
+        "label": "Category name",
+        "helperText": "Type in your category name. Don't worry, you can change it later.",
+        "error": {
+          "required": "Category name is required",
+          "tooLong": "Category name must have less than 30 characters",
+          "tooShort": "Category name must have at least 3 characters"
+        },
+        "placeholder": "Category name"
+      }
+    }
+  },
+  "modals": {
+    "createServer": {
+      "header": "Create Channel"
+    },
+    "createCategory": {
+      "header": "Create Category"
+    }
+  }
+}
