@@ -1,1 +1,1 @@
-export { default as Server } from './Server';
+export { Server as default } from './Server';

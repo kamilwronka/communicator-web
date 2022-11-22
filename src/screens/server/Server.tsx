@@ -4,7 +4,7 @@ import { ChannelView } from './components/ChannelView/ChannelView';
 import { Layout } from './components/Layout';
 import { NoTextChannelsView } from './components/NoTextChannelsView';
 
-const Server: React.FC = () => {
+export const Server: React.FC = () => {
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -14,5 +14,3 @@ const Server: React.FC = () => {
     </Routes>
   );
 };
-
-export default Server;

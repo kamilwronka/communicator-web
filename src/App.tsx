@@ -14,7 +14,7 @@ import { Navigation } from 'navigation';
 
 import Auth0 from 'providers/Auth0';
 
-import { Loading } from 'screens/loading';
+import Loading from 'screens/loading';
 
 function App() {
   return (
