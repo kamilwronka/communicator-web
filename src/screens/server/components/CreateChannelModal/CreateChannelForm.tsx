@@ -8,7 +8,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { BiUserVoice } from 'react-icons/bi';
 import { BsHash } from 'react-icons/bs';
 import { useNavigate, useParams } from 'react-router-dom';

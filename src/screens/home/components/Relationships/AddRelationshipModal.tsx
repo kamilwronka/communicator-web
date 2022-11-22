@@ -21,7 +21,8 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import axios from 'axios';
-import { isEmpty, isNil } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 import { BsSearch } from 'react-icons/bs';
 
 import { useAuthToken } from 'hooks/common/useAuthToken';

@@ -1,5 +1,5 @@
 import { Center, Divider } from '@chakra-ui/react';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 import { useServers } from 'hooks/servers/useServers';
 

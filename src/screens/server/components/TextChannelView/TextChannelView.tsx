@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 
 import { Divider, Flex } from '@chakra-ui/react';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { nanoid } from 'nanoid';
 import { BsHash } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';

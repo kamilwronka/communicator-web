@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import io, { Socket } from 'socket.io-client';
 
 import { GATEWAY_URL } from 'config/apiConfig';

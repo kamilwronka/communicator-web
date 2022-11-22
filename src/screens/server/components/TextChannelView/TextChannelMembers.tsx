@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { Box, Divider, Flex, Heading } from '@chakra-ui/react';
 import { Reorder } from 'framer-motion';
-import { noop } from 'lodash';
+import noop from 'lodash/noop';
 
 import { SearchInput } from 'components';
 

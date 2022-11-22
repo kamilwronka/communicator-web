@@ -14,7 +14,8 @@ import createMentionPlugin, {
   defaultSuggestionsFilter,
 } from '@draft-js-plugins/mention';
 import { EditorState, Modifier, SelectionState, convertToRaw } from 'draft-js';
-import { isEmpty, reduce } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import reduce from 'lodash/reduce';
 
 import { CHAT_MESSAGES_MAX_ATTACHMENT_SIZE } from 'config/chat';
 

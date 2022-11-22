@@ -8,7 +8,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { useParams } from 'react-router-dom';
 import { ChannelType } from 'types/channel';
 import { object, string } from 'yup';
