@@ -60,11 +60,11 @@ export const GatewayProvider: React.FC<{
           // join private channel
 
           socket.on('join', payload => {
-            // console.log(payload);
+            console.log(payload);
           });
 
           socket.on('leave', payload => {
-            // console.log(payload);
+            console.log(payload);
           });
 
           setConnected(socket.connected);

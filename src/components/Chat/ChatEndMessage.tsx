@@ -1,4 +1,4 @@
-import { Avatar, Box, Circle, Heading, Icon, Text } from '@chakra-ui/react';
+import { Avatar, Box, Circle, Icon, Text } from '@chakra-ui/react';
 import { BsHash } from 'react-icons/bs';
 import { ChannelType } from 'types/channel';
 
@@ -21,10 +21,17 @@ export const ChatEndMessage: React.FC<Props> = ({ name, type, imgSrc }) => {
       {type === ChannelType.PRIVATE && (
         <>
           <Avatar size="xl" name={name} src={imgSrc} />
-          <Heading pt="4" noOfLines={1} w="full">
+          <Text
+            fontSize="3xl"
+            fontWeight="semibold"
+            pt="4"
+            textOverflow="hidden"
+            w="full"
+            wordBreak="break-word"
+          >
             {name}
-          </Heading>
-          <Text pt="2" noOfLines={1}>
+          </Text>
+          <Text pt="2" display="flex" textOverflow="hidden">
             This is the beginning of your direct message history with @{name}
           </Text>
         </>

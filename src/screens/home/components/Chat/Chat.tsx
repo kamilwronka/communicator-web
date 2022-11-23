@@ -62,6 +62,14 @@ export const Chat: React.FC = () => {
     };
   }, [connected, setupEvents, clearEvents]);
 
+  useEffect(() => {
+    connected && socket.emit('join', channelId);
+
+    return () => {
+      socket.emit('leave', channelId);
+    };
+  }, [channelId, connected, socket]);
+
   const handleChatMessage = async (
     value: string,
     mentions: any[],

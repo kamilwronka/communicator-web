@@ -130,13 +130,18 @@ export const TextChannelView: React.FC = () => {
   useEffect(() => {
     connected && setupEvents();
 
-    socket.emit('join', channelId);
-
     return () => {
       connected && clearEvents();
-      socket.emit('leave', channelId);
     };
   }, [connected, setupEvents, clearEvents, socket, channelId]);
+
+  useEffect(() => {
+    connected && socket.emit('join', channelId);
+
+    return () => {
+      socket.emit('leave', channelId);
+    };
+  }, [channelId, connected, socket]);
 
   return (
     <Flex direction="row" height="full">

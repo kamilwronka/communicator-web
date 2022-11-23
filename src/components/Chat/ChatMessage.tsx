@@ -91,7 +91,7 @@ export const ChatMessage: React.FC<Props> = ({
         py="1"
         w="full"
       >
-        <Box width="16" display="flex" alignItems="flex-start">
+        <Box width="16" minWidth="16" display="flex" alignItems="flex-start">
           {(shouldRenderUserDetails || renderDivider) && (
             <Avatar
               name={author.username}
