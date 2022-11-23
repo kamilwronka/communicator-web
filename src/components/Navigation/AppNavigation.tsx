@@ -13,7 +13,7 @@ export const AppNavigation: React.FC = () => {
   const { data: userData } = useUser();
 
   return (
-    <Flex width="24" bg="gray.900" direction="column">
+    <Flex width="24" minWidth="24" bg="gray.900" direction="column">
       <Flex h="16" alignItems="center" justifyContent="center">
         <NavigationItem
           href="/channels/@me"

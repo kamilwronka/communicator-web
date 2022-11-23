@@ -112,7 +112,11 @@ export const ChatMessage: React.FC<Props> = ({
             </Box>
           )}
           <Box>
-            <Box fontSize="md" color={optimistic ? 'gray.500' : 'white'}>
+            <Box
+              fontSize="md"
+              color={optimistic ? 'gray.500' : 'white'}
+              wordBreak="break-all"
+            >
               {attachments?.map((file: Attachment, index) => {
                 const key = file instanceof File ? index : file._id;
                 return (
