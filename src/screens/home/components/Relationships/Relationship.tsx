@@ -122,7 +122,7 @@ export const Relationship: React.FC<Props> = ({ relationship }) => {
         let userFound = false;
 
         for (let user of privateChannel.users) {
-          userFound = user.userId === relationship.user.user_id;
+          userFound = user.id === relationship.user.id;
           if (userFound) {
             break;
           }

@@ -144,7 +144,7 @@ export const Chat: React.FC = () => {
   }, [setPage]);
 
   const chatPartner = selectedChannel?.users.find(
-    participant => participant.userId !== user?.user_id,
+    participant => participant.id !== user?.id,
   );
   const suggestions = mapToSuggestions(selectedChannel?.users);
 

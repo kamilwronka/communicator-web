@@ -10,7 +10,7 @@ export type Server = {
 };
 
 export type ServerMember = {
-  userId: string;
+  id: string;
   username: string;
   profilePictureUrl: string;
 };

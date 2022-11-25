@@ -151,7 +151,7 @@ export const ChatInput: React.FC<Props> = ({
         const { mention } = entity.data;
         messagePayload = messagePayload.replace(
           mention.name,
-          `<@${mention.user_id}>`,
+          `<@${mention.id}>`,
         );
 
         return mention;

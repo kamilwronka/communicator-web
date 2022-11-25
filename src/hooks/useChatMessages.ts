@@ -9,7 +9,7 @@ import { apiClient } from 'utils/apiClient';
 import { useAuthToken } from './common/useAuthToken';
 
 export interface Author {
-  user_id: string;
+  id: string;
   username: string;
   profile_picture_url: string;
 }

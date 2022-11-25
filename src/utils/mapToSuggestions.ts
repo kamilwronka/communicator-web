@@ -10,7 +10,7 @@ export const mapToSuggestions = (
       avatar: user.profilePictureUrl,
       name: user.username,
       username: user.username,
-      user_id: user.userId,
+      id: user.id,
     };
   });
 };

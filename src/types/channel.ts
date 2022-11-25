@@ -8,7 +8,7 @@ export enum ChannelType {
 export type ChannelMember = {
   profilePictureUrl: string;
   username: string;
-  userId: string;
+  id: string;
 };
 
 export type Channel = {

@@ -74,7 +74,7 @@ export const TextChannelMembers: React.FC = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 as="div"
-                key={member.user_id}
+                key={member.id}
                 value={member}
                 transition={{ stiffness: 250, duration: 0.2 }}
               >

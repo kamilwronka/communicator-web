@@ -52,7 +52,7 @@ export const DirectMessages: React.FC = () => {
           <Stack spacing="1" px="2">
             {privateChannels?.map(channel => {
               const desiredUser = channel.users?.find(user => {
-                return user.userId !== userData?.user_id;
+                return user.id !== userData?.id;
               });
 
               const active = channelId === channel._id;

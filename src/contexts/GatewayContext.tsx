@@ -55,10 +55,8 @@ export const GatewayProvider: React.FC<{
 
   const setupInitialEvents = useCallback(
     (socket: Socket) => {
-      if (user?.user_id) {
+      if (user?.id) {
         socket.on(EBaseWsEvents.CONNECT, () => {
-          // join private channel
-
           socket.on('join', payload => {
             console.log(payload);
           });
@@ -75,7 +73,7 @@ export const GatewayProvider: React.FC<{
         });
       }
     },
-    [user?.user_id],
+    [user?.id],
   );
 
   useEffect(() => {

@@ -36,7 +36,7 @@ export const ChatMessage: React.FC<Props> = ({
 
         const mention = mentions?.find(mention => {
           if (computedId && computedId.length > 0) {
-            return mention.user_id === computedId[0];
+            return mention.id === computedId[0];
           }
 
           return false;

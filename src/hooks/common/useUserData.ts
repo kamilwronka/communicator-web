@@ -7,7 +7,7 @@ import { apiClient } from 'utils/apiClient';
 import { useAuthToken } from './useAuthToken';
 
 export type TUser = {
-  user_id: string;
+  id: string;
   email: string;
   profile_created: boolean;
   username: string;

@@ -9,7 +9,7 @@ import { useAuthToken } from './common/useAuthToken';
 import { TUser } from './common/useUserData';
 
 type ChannelUser = {
-  userId: string;
+  id: string;
   profilePictureUrl: string;
   username: string;
 };
