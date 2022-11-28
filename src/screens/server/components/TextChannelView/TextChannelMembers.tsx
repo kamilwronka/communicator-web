@@ -18,11 +18,11 @@ export const TextChannelMembers: React.FC = () => {
     setSearchValue(query);
   };
 
-  const members = useMemo(() => {
-    return selectedServer?.members.filter(member =>
-      member.username.toLowerCase().includes(searchValue.toLowerCase()),
-    );
-  }, [selectedServer?.members, searchValue]);
+  // const members = useMemo(() => {
+  //   return selectedServer?.members.filter(member =>
+  //     member.username.toLowerCase().includes(searchValue.toLowerCase()),
+  //   );
+  // }, [selectedServer?.members, searchValue]);
 
   return (
     <Flex bg="gray.800" w="80" h="full" color="white" flexDir="column">
@@ -59,14 +59,14 @@ export const TextChannelMembers: React.FC = () => {
           },
         }}
       >
-        <Reorder.Group
+        {/* <Reorder.Group
           axis="y"
-          values={members ? members : []}
+          // values={members ? members : []}
           layoutScroll
           style={{ listStyleType: 'none' }}
           onReorder={noop}
-        >
-          {members?.map(member => {
+        > */}
+        {/* {members?.map(member => {
             return (
               <Reorder.Item
                 dragListener={false}
@@ -81,8 +81,8 @@ export const TextChannelMembers: React.FC = () => {
                 <TextChannelMember member={member} />
               </Reorder.Item>
             );
-          })}
-        </Reorder.Group>
+          })} */}
+        {/* </Reorder.Group> */}
       </Flex>
     </Flex>
   );
