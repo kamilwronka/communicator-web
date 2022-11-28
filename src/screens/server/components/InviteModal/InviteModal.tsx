@@ -53,7 +53,7 @@ export const InviteModal: React.FC = () => {
     onToggle();
   });
 
-  const invite = invites?.find(invite => invite.max_age === 0);
+  const invite = invites?.find(invite => invite);
   const inviteLink = invite?._id
     ? `${window.location.origin}/join/${invite?._id}`
     : '';
@@ -61,8 +61,8 @@ export const InviteModal: React.FC = () => {
   useEffect(() => {
     if (!invite && serverId && token && isOpen) {
       const data = {
-        max_age: 0,
-        max_uses: 0,
+        maxAge: 0,
+        maxUses: 0,
         validate: null,
       };
 

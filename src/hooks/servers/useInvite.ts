@@ -16,8 +16,8 @@ export type TInviteServer = {
 
 export type TInvite = {
   _id: string;
-  max_age: number;
-  max_uses: number;
+  maxAge: number;
+  maxUses: number;
   server: TInviteServer;
   inviter: TUser;
 };
@@ -28,7 +28,7 @@ export const useInvite = () => {
 
   const fetcher = useCallback(
     () =>
-      apiClient<TInvite>(`/servers/invites/${inviteId}`, {
+      apiClient<TInvite>(`/invites/${inviteId}`, {
         method: 'GET',
         token,
       }),
@@ -36,7 +36,7 @@ export const useInvite = () => {
   );
 
   const { data, error, mutate } = useSWR(
-    token && inviteId ? `/servers/invites/${inviteId}` : null,
+    token && inviteId ? `/invites/${inviteId}` : null,
     fetcher,
   );
 
