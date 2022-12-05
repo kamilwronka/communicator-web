@@ -22,7 +22,7 @@ export type TServer = {
 export type TServerMember = {
   id: string;
   username: string;
-  profile_picture_url: string;
+  avatar: string;
 };
 
 export const useServers = () => {

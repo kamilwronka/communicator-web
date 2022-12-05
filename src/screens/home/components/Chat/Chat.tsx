@@ -89,7 +89,7 @@ export const Chat: React.FC = () => {
       nonce,
       author: user,
       content: value,
-      created_at: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
       channel_id: channelId,
       mentions,
       attachments: files,

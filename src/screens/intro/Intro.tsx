@@ -13,7 +13,7 @@ export const Intro: React.FC = () => {
   const { search } = useLocation();
 
   useEffect(() => {
-    if (user?.profile_created) {
+    if (user?.username) {
       const searchParams = new URLSearchParams(search);
       const returnURL = searchParams.get('return');
 
@@ -24,7 +24,7 @@ export const Intro: React.FC = () => {
 
       navigate(`/channels/@me`);
     }
-  }, [user?.profile_created, navigate, search]);
+  }, [user?.username, navigate, search]);
 
   return (
     <Box w="100vw" h="100vh">

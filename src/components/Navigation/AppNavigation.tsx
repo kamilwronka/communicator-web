@@ -18,7 +18,7 @@ export const AppNavigation: React.FC = () => {
         <NavigationItem
           href="/channels/@me"
           name={userData?.username}
-          src={userData?.profile_picture_url}
+          src={userData?.avatar}
           isActive={matchingPath?.pathnameBase === '/channels/@me'}
         />
       </Flex>

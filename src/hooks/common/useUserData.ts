@@ -11,7 +11,7 @@ export type TUser = {
   email: string;
   profile_created: boolean;
   username: string;
-  profile_picture_url: string;
+  avatar: string;
 };
 
 export const useUser = () => {

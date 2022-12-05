@@ -161,7 +161,7 @@ export const Relationship: React.FC<Props> = ({ relationship }) => {
           <Box>
             <AvatarWithStatus
               status="online"
-              src={relationship.user.profile_picture_url}
+              src={relationship.user.avatar}
               name={relationship.user.username}
             />
           </Box>

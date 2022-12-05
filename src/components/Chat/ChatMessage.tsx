@@ -25,7 +25,7 @@ export const ChatMessage: React.FC<Props> = ({
   optimistic,
   renderDivider,
 }) => {
-  const { author, created_at, mentions, content, attachments } = message;
+  const { author, createdAt, mentions, content, attachments } = message;
 
   const renderMessageContent = () => {
     const parts = content.split(CHAT_MESSAGES_SPLIT_REGEX);
@@ -75,7 +75,7 @@ export const ChatMessage: React.FC<Props> = ({
           >
             <Box bg="gray.700" px="2">
               <Text fontWeight="semibold" fontSize="sm">
-                {formatDateIntl(created_at)}
+                {formatDateIntl(createdAt)}
               </Text>
             </Box>
           </Box>
@@ -95,7 +95,7 @@ export const ChatMessage: React.FC<Props> = ({
           {(shouldRenderUserDetails || renderDivider) && (
             <Avatar
               name={author.username}
-              src={author.profile_picture_url}
+              src={author.avatar}
               size="md"
             />
           )}
@@ -107,7 +107,7 @@ export const ChatMessage: React.FC<Props> = ({
                 {author.username}
               </Text>
               <Text color="gray.500" fontSize="xs" ml="2">
-                {formatDateRelative(created_at)}
+                {formatDateRelative(createdAt)}
               </Text>
             </Box>
           )}
@@ -118,7 +118,7 @@ export const ChatMessage: React.FC<Props> = ({
               wordBreak="break-all"
             >
               {attachments?.map((file: Attachment, index) => {
-                const key = file instanceof File ? index : file._id;
+                const key = file instanceof File ? index : file.id;
                 return (
                   <ChatMessageAttachment
                     key={key}

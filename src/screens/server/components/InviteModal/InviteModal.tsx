@@ -157,7 +157,7 @@ export const InviteModal: React.FC = () => {
                 >
                   <Flex flex="1" alignItems="center">
                     <Avatar
-                      src={user.profile_picture_url}
+                      src={user.avatar}
                       name={user.username}
                       size="sm"
                     />

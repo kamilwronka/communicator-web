@@ -74,8 +74,8 @@ export const ChatMessagesContainer = forwardRef<HTMLDivElement, Props>(
         >
           <div ref={ref}>
             {messages.map((message, i) => {
-              const { author, created_at, nonce, _id } = message;
-              const msgDate = new Date(created_at).getTime();
+              const { author, createdAt, nonce, id } = message;
+              const msgDate = new Date(createdAt).getTime();
               const prevMsgDate = new Date(prevDate.current).getTime();
 
               const shouldRenderUserDetails =
@@ -87,12 +87,12 @@ export const ChatMessagesContainer = forwardRef<HTMLDivElement, Props>(
                 differenceInCalendarDays(msgDate, prevMsgDate) === 1 || i === 0;
 
               lastSender.current = author.id;
-              prevDate.current = created_at;
+              prevDate.current = createdAt;
 
               return (
                 <ChatMessage
-                  key={_id || nonce}
-                  optimistic={!_id}
+                  key={id || nonce}
+                  optimistic={!id}
                   shouldRenderUserDetails={shouldRenderUserDetails}
                   renderDivider={renderDivider}
                   message={message}

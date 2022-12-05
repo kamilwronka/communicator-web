@@ -58,7 +58,7 @@ export const CreateProfileForm: React.FC<Props> = ({ onSuccessfulSubmit }) => {
             ({ key, uploadUrl } = await apiClient<{
               key: string;
               uploadUrl: string;
-            }>('/users/me/profilePicture', {
+            }>('/users/me/profile/avatar', {
               method: 'POST',
               token,
               data: {
@@ -72,7 +72,7 @@ export const CreateProfileForm: React.FC<Props> = ({ onSuccessfulSubmit }) => {
             });
           }
 
-          await apiClient('users/profile', {
+          await apiClient('/users/me/profile', {
             token,
             data: {
               profilePictureKey: key,

@@ -23,7 +23,7 @@ export const TextChannelMember: React.FC<{ member: TServerMember }> = ({
       <AvatarWithStatus
         status="online"
         name={member.username}
-        src={member.profile_picture_url}
+        src={member.avatar}
       />
       <Text ml="4">{member.username}</Text>
     </Flex>

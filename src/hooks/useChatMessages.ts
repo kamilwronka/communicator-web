@@ -11,19 +11,19 @@ import { useAuthToken } from './common/useAuthToken';
 export interface Author {
   id: string;
   username: string;
-  profile_picture_url: string;
+  avatar: string;
 }
 
 export type Attachment =
   | {
       url: string;
-      _id: string;
+      id: string;
       mimeType: string;
     }
   | File;
 
 export type TChatMessage = {
-  _id?: string;
+  id?: string;
   nonce: string;
   attachments?: Attachment[];
   author: Author;
@@ -32,7 +32,7 @@ export type TChatMessage = {
   mention_everyone?: boolean;
   mention_roles?: string[];
   mentions?: Author[];
-  created_at: string;
+  createdAt: string;
 };
 
 type TState = {
@@ -117,7 +117,7 @@ export const useInfiniteChatMessages = (id: string | undefined) => {
 
   useEffect(() => {
     firstMessageId.current =
-      state.messages.length > 0 ? state.messages[0]._id : '';
+      state.messages.length > 0 ? state.messages[0].id : '';
   }, [state.messages]);
 
   useEffect(() => {

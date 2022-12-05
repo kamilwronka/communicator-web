@@ -14,12 +14,12 @@ export const Protected: React.FC<Props> = ({ children }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (user?.profile_created === false) {
+    if (user?.username === null) {
       navigate(
         `/intro?return=${pathname === '/' ? '/channels/@me' : pathname}`,
       );
     }
-  }, [user?.profile_created, navigate, pathname]);
+  }, [user?.username, navigate, pathname]);
 
-  return user?.profile_created ? children : null;
+  return user?.username ? children : null;
 };

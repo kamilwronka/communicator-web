@@ -21,7 +21,7 @@ export const UserQuickMenu: React.FC = props => {
     >
       <HStack flex="1" spacing="3.5">
         <AvatarWithStatus
-          src={user?.profile_picture_url}
+          src={user?.avatar}
           name={user?.username}
           status="online"
         />
