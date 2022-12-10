@@ -58,7 +58,7 @@ export const AddServerModal: React.FC<Props> = ({ isOpen, onClose }) => {
       );
       setIsLoading(false);
       onClose();
-      navigate(`/channels/${response._id}`);
+      navigate(`/channels/${response.id}`);
     } catch (error) {
       console.log(error);
       setIsLoading(false);

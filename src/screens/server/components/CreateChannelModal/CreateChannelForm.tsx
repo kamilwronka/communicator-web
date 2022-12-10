@@ -69,7 +69,7 @@ export const CreateChannelForm: React.FC<Props> = ({ onClose, parent }) => {
           method: 'POST',
           data: {
             ...values,
-            parentId: parent?._id,
+            parentId: parent?.id,
           },
           token,
         },
@@ -85,7 +85,7 @@ export const CreateChannelForm: React.FC<Props> = ({ onClose, parent }) => {
       );
       setIsLoading(false);
       onClose();
-      navigate(`/channels/${serverId}/${response._id}`);
+      navigate(`/channels/${serverId}/${response.id}`);
     } catch (error) {
       setIsLoading(false);
       toast({

@@ -11,7 +11,7 @@ import { apiClient } from 'utils/apiClient';
 import { useAuthToken } from '../common/useAuthToken';
 
 export type ServerChannel = {
-  _id: string;
+  id: string;
   serverId: any;
   type: ChannelType;
   name: string;
@@ -38,7 +38,7 @@ export const useServerChannels = () => {
     { fallbackData: [] },
   );
 
-  const selectedChannel = data?.find(channel => channel._id === channelId);
+  const selectedChannel = data?.find(channel => channel.id === channelId);
   const isLoading = !data && !error;
 
   return { data, error, mutate, selectedChannel, channelId, isLoading };

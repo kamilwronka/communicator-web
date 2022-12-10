@@ -1,28 +1,91 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { Box, Divider, Flex, Heading } from '@chakra-ui/react';
 import { Reorder } from 'framer-motion';
 import noop from 'lodash/noop';
+import { useParams } from 'react-router-dom';
+import { User } from 'types/user';
 
 import { SearchInput } from 'components';
 
-import { useServers } from 'hooks/servers/useServers';
+import { GatewayEvents } from 'enums/gatewayEvents';
+
+import { useGateway } from 'hooks/useGateway';
 
 import { TextChannelMember } from './TextChannelMember';
 
+type Member = Pick<User, 'id'> & {
+  status: 'online' | 'offline' | 'afk';
+};
+
+const testData = [
+  {
+    id: '6rVlBZr4Lgv0A8aysspJV',
+    username: 'hahatest',
+  },
+];
+
 export const TextChannelMembers: React.FC = () => {
-  const { selectedServer } = useServers();
   const [searchValue, setSearchValue] = useState('');
+  const [onlineMembers, setOnlineMembers] = useState<Member[]>([]);
+  const { socket, connected } = useGateway();
+  const { serverId } = useParams();
 
   const handleSearchInputChange = (query: string) => {
     setSearchValue(query);
   };
 
-  // const members = useMemo(() => {
-  //   return selectedServer?.members.filter(member =>
-  //     member.username.toLowerCase().includes(searchValue.toLowerCase()),
-  //   );
-  // }, [selectedServer?.members, searchValue]);
+  const emitInitialEvents = useCallback(() => {
+    socket.emit(GatewayEvents.SERVER_PRESENCE_REQUEST, { serverId });
+  }, [serverId, socket]);
+
+  const setupListeners = useCallback(() => {
+    socket.on(GatewayEvents.SERVER_PRESENCE_REQUEST, (users: Member[]) => {
+      setOnlineMembers(users);
+    });
+
+    socket.on(GatewayEvents.SERVER_PRESENCE_UPDATE, (user: Member) => {
+      setOnlineMembers(currentState => {
+        if (user.status === 'online') {
+          return [
+            ...new Map(
+              [...currentState, user].map((item: any) => [item.id, item]),
+            ).values(),
+          ];
+        }
+
+        if (user.status === 'offline') {
+          return currentState.filter(member => member.id !== user.id);
+        }
+
+        if (user.status === 'afk') {
+          return currentState.map(member => {
+            return member.id === user.id ? user : member;
+          });
+        }
+
+        return currentState;
+      });
+    });
+  }, [socket]);
+
+  const removeListeners = useCallback(() => {
+    socket.off(GatewayEvents.SERVER_PRESENCE_UPDATE);
+    socket.off(GatewayEvents.SERVER_PRESENCE_REQUEST);
+  }, [socket]);
+
+  useEffect(() => {
+    if (connected) {
+      setupListeners();
+      emitInitialEvents();
+    }
+
+    return () => {
+      if (connected && socket) {
+        removeListeners();
+      }
+    };
+  }, [connected, socket]);
 
   return (
     <Flex bg="gray.800" w="80" h="full" color="white" flexDir="column">
@@ -59,14 +122,14 @@ export const TextChannelMembers: React.FC = () => {
           },
         }}
       >
-        {/* <Reorder.Group
+        <Reorder.Group
           axis="y"
-          // values={members ? members : []}
+          values={onlineMembers ? onlineMembers : []}
           layoutScroll
           style={{ listStyleType: 'none' }}
           onReorder={noop}
-        > */}
-        {/* {members?.map(member => {
+        >
+          {onlineMembers?.map(member => {
             return (
               <Reorder.Item
                 dragListener={false}
@@ -78,11 +141,12 @@ export const TextChannelMembers: React.FC = () => {
                 value={member}
                 transition={{ stiffness: 250, duration: 0.2 }}
               >
+                {/* @ts-ignore */}
                 <TextChannelMember member={member} />
               </Reorder.Item>
             );
-          })} */}
-        {/* </Reorder.Group> */}
+          })}
+        </Reorder.Group>
       </Flex>
     </Flex>
   );

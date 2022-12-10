@@ -14,7 +14,7 @@ const flatArrayToTree = (items: any, id = null, link = 'parentId') =>
     .filter((item: any) => item[link] === id)
     .map((item: any) => ({
       ...item,
-      children: flatArrayToTree(items, item._id),
+      children: flatArrayToTree(items, item.id),
     }));
 
 export const ChannelNavigation: React.FC = () => {
@@ -37,19 +37,17 @@ export const ChannelNavigation: React.FC = () => {
     return items.map((channel: ServerChannel) => {
       if (channel.children.length > 0) {
         return (
-          <ChannelNavigationCategory key={channel._id} channel={channel}>
+          <ChannelNavigationCategory key={channel.id} channel={channel}>
             {renderNavigationTree(channel.children)}
           </ChannelNavigationCategory>
         );
       }
 
       if (channel.type === ChannelType.PARENT) {
-        return (
-          <ChannelNavigationCategory key={channel._id} channel={channel} />
-        );
+        return <ChannelNavigationCategory key={channel.id} channel={channel} />;
       }
 
-      return <ChannelNavigationItem channel={channel} key={channel._id} />;
+      return <ChannelNavigationItem channel={channel} key={channel.id} />;
     });
   };
 

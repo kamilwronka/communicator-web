@@ -12,8 +12,8 @@ export const ServerNavigation: React.FC = () => {
     <>
       {servers?.map(server => (
         <ServerNavigationItem
-          key={server._id}
-          id={server._id}
+          key={server.id}
+          id={server.id}
           name={server.name}
           src={server.icon}
         />

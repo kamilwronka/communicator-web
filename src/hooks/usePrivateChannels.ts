@@ -6,7 +6,6 @@ import useSWR from 'swr';
 import { apiClient } from 'utils/apiClient';
 
 import { useAuthToken } from './common/useAuthToken';
-import { TUser } from './common/useUserData';
 
 type ChannelUser = {
   id: string;
@@ -15,7 +14,7 @@ type ChannelUser = {
 };
 
 export type TPrivateChannel = {
-  _id: string;
+  id: string;
   server_id?: any;
   type: string;
   users: ChannelUser[];
@@ -32,17 +31,20 @@ export const usePrivateChannels = () => {
 
   const fetcher = useCallback(
     () =>
-      apiClient<TPrivateChannel[]>('/channels', {
+      apiClient<TPrivateChannel[]>('/users/me/channels', {
         method: 'GET',
         token,
       }),
     [token],
   );
 
-  const { data, error, mutate } = useSWR(token ? `/channels` : null, fetcher);
+  const { data, error, mutate } = useSWR(
+    token ? `/users/me/channels` : null,
+    fetcher,
+  );
 
   const selectedChannel = useMemo(
-    () => data?.find(channel => channel._id === channelId),
+    () => data?.find(channel => channel.id === channelId),
     [channelId, data],
   );
 

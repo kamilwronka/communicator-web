@@ -11,7 +11,7 @@ import { useAuthToken } from '../common/useAuthToken';
 import { ServerChannel } from './useServerChannels';
 
 export type TServer = {
-  _id: string;
+  id: string;
   name: string;
   owner_id: string;
   icon: string;
@@ -30,14 +30,17 @@ export const useServers = () => {
   const { serverId } = useParams<NavigationParams>();
 
   const fetcher = useCallback(
-    () => apiClient<TServer[]>('/servers', { method: 'GET', token }),
+    () => apiClient<TServer[]>('/users/me/servers', { method: 'GET', token }),
     [token],
   );
 
-  const { data, error, mutate } = useSWR(token ? `/servers` : null, fetcher);
+  const { data, error, mutate } = useSWR(
+    token ? `/users/me/servers` : null,
+    fetcher,
+  );
 
   const selectedServer = useMemo(
-    () => data?.find(server => server._id === serverId),
+    () => data?.find(server => server.id === serverId),
     [serverId, data],
   );
 

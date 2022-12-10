@@ -1,7 +1,7 @@
 import { Channel } from './channel';
 
 export type Server = {
-  _id: string;
+  id: string;
   name: string;
   owner_id: string;
   icon: string;

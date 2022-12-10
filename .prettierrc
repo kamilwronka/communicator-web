@@ -24,6 +24,8 @@
     "^components/(.*)$",
     "config",
     "^config/(.*)$",
+    "enums",
+    "^enums/(.*)$",
     "helpers",
     "^helpers/(.*)$",
     "hooks",

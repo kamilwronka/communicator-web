@@ -2,10 +2,11 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
+import eslint from 'vite-plugin-eslint';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), visualizer()],
+  plugins: [react(), visualizer(), eslint()],
   server: {
     port: 3000,
   },
@@ -14,6 +15,7 @@ export default defineConfig({
       components: path.resolve(__dirname, './src/components'),
       config: path.resolve(__dirname, './src/config'),
       contexts: path.resolve(__dirname, './src/contexts'),
+      enums: path.resolve(__dirname, './src/enums'),
       eventEmitter: path.resolve(__dirname, './src/eventEmitter'),
       hooks: path.resolve(__dirname, './src/hooks'),
       i18n: path.resolve(__dirname, './src/i18n'),
@@ -21,6 +23,7 @@ export default defineConfig({
       navigation: path.resolve(__dirname, './src/navigation'),
       providers: path.resolve(__dirname, './src/providers'),
       screens: path.resolve(__dirname, './src/screens'),
+      store: path.resolve(__dirname, './src/store'),
       types: path.resolve(__dirname, './src/types'),
       utils: path.resolve(__dirname, './src/utils'),
     },

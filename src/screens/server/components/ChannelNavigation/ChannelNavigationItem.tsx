@@ -15,7 +15,7 @@ export const ChannelNavigationItem: React.FC<Props> = ({ channel }) => {
   const { channelId } = useParams();
   const navigate = useNavigate();
 
-  const active = channel._id === channelId;
+  const active = channel.id === channelId;
 
   const renderChannelIcon = () => {
     switch (channel.type) {
@@ -30,7 +30,7 @@ export const ChannelNavigationItem: React.FC<Props> = ({ channel }) => {
 
   const handleNavigate = () => {
     if (channel.type === 'TEXT') {
-      navigate(`/channels/${channel.serverId}/${channel._id}`);
+      navigate(`/channels/${channel.serverId}/${channel.id}`);
     }
   };
 

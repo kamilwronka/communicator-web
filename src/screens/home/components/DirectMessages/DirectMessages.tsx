@@ -55,16 +55,16 @@ export const DirectMessages: React.FC = () => {
                 return user.id !== userData?.id;
               });
 
-              const active = channelId === channel._id;
+              const active = channelId === channel.id;
 
               if (channel.type !== 'PRIVATE') {
                 return null;
               }
 
-              const href = `/channels/@me/${channel._id}`;
+              const href = `/channels/@me/${channel.id}`;
 
               return (
-                <Link to={href ? href : '/channels/@me'} key={channel._id}>
+                <Link to={href ? href : '/channels/@me'} key={channel.id}>
                   <Stack
                     w="full"
                     cursor="pointer"

@@ -27,7 +27,7 @@ export const NoTextChannelsView: React.FC = () => {
           channel => channel.type === ChannelType.TEXT,
         );
         return defaultTextChannel
-          ? `${basePath}/${defaultTextChannel._id}`
+          ? `${basePath}/${defaultTextChannel.id}`
           : null;
       }
 

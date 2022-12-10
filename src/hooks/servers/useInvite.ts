@@ -15,7 +15,7 @@ export type TInviteServer = {
 };
 
 export type TInvite = {
-  _id: string;
+  id: string;
   maxAge: number;
   maxUses: number;
   server: TInviteServer;

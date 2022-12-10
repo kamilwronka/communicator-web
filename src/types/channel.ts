@@ -15,6 +15,6 @@ export type Channel = {
   name: string;
   type: ChannelType;
   allowed_roles?: string[];
-  _id: string;
+  id: string;
   users?: ChannelMember[];
 };

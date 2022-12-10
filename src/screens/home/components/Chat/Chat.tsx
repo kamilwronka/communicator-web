@@ -58,7 +58,9 @@ export const Chat: React.FC = () => {
     connected && setupEvents();
 
     return () => {
-      connected && clearEvents();
+      if (socket && connected) {
+        clearEvents();
+      }
     };
   }, [connected, setupEvents, clearEvents]);
 

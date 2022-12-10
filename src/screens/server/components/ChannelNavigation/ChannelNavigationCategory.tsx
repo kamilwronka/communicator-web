@@ -29,7 +29,7 @@ export const ChannelNavigationCategory: React.FC<Props> = ({
   channel,
 }) => {
   const [localStorageValue, setLocalStorageValue] = useLocalStorage(
-    `${channel._id}/collapsed`,
+    `${channel.id}/collapsed`,
     false,
   );
   const [isOpen, setIsOpen] = useState(localStorageValue);

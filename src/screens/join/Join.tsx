@@ -33,7 +33,7 @@ export const Join: React.FC = () => {
         `/servers/${invite?.server.id}/members`,
         {
           method: 'POST',
-          data: { inviteId: invite?._id },
+          data: { inviteId: invite?.id },
           token,
         },
       );

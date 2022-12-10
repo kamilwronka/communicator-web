@@ -10,6 +10,8 @@ import { ChannelType } from 'types/channel';
 import { ChatHeading, ChatInput, ChatMessagesContainer } from 'components';
 import { ChatEndMessage } from 'components/Chat/ChatEndMessage';
 
+import { GatewayEvents } from 'enums/gatewayEvents';
+
 import { useAuthToken } from 'hooks/common/useAuthToken';
 import { useUser } from 'hooks/common/useUserData';
 import { useServerChannels } from 'hooks/servers/useServerChannels';
@@ -25,10 +27,6 @@ import { imageUploadApiClient } from 'utils/imageUploadApiClient';
 
 import { TextChannelMembers } from './TextChannelMembers';
 
-enum Events {
-  MESSAGE = 'message',
-}
-
 type FileUploadResponse = {
   key: string;
   url: string;
@@ -36,7 +34,7 @@ type FileUploadResponse = {
 
 export const TextChannelView: React.FC = () => {
   const { selectedChannel } = useServerChannels();
-  const { channelId } = useParams();
+  const { channelId, serverId } = useParams();
   const token = useAuthToken();
   const { data: user } = useUser();
   const { finished, messages, loading, setPage, dispatch } =
@@ -116,32 +114,30 @@ export const TextChannelView: React.FC = () => {
     setPage(page => page + 1);
   }, [setPage]);
 
-  const setupEvents = useCallback(() => {
-    socket.on(Events.MESSAGE, (messageData: TChatMessage) => {
-      dispatch({ type: EActionType.ADD_OR_UPDATE, payload: messageData });
-    });
-  }, [socket, dispatch]);
+  const setupListeners = useCallback(() => {
+    socket.on(
+      GatewayEvents.SERVER_MESSAGE_SEND,
+      (messageData: TChatMessage) => {
+        dispatch({ type: EActionType.ADD_OR_UPDATE, payload: messageData });
+      },
+    );
+  }, [serverId, socket]);
 
-  const clearEvents = useCallback(() => {
-    socket.off(Events.MESSAGE);
-    // socket.off(Events.RELATIONSHIP_REQUEST);
+  const removeListeners = useCallback(() => {
+    socket.off(GatewayEvents.SERVER_MESSAGE_SEND);
   }, [socket]);
 
   useEffect(() => {
-    connected && setupEvents();
+    if (connected && socket && serverId) {
+      setupListeners();
+    }
 
     return () => {
-      connected && clearEvents();
+      if (socket && connected) {
+        removeListeners();
+      }
     };
-  }, [connected, setupEvents, clearEvents, socket, channelId]);
-
-  useEffect(() => {
-    connected && socket.emit('join', channelId);
-
-    return () => {
-      socket.emit('leave', channelId);
-    };
-  }, [channelId, connected, socket]);
+  }, [connected, socket, serverId]);
 
   return (
     <Flex direction="row" height="full">

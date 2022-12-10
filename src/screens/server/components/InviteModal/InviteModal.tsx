@@ -54,8 +54,8 @@ export const InviteModal: React.FC = () => {
   });
 
   const invite = invites?.find(invite => invite);
-  const inviteLink = invite?._id
-    ? `${window.location.origin}/join/${invite?._id}`
+  const inviteLink = invite?.id
+    ? `${window.location.origin}/join/${invite?.id}`
     : '';
 
   useEffect(() => {
@@ -156,11 +156,7 @@ export const InviteModal: React.FC = () => {
                   pr="2"
                 >
                   <Flex flex="1" alignItems="center">
-                    <Avatar
-                      src={user.avatar}
-                      name={user.username}
-                      size="sm"
-                    />
+                    <Avatar src={user.avatar} name={user.username} size="sm" />
                     <Text ml="4">{user.username}</Text>
                   </Flex>
                   <Button variant="green" size="sm">

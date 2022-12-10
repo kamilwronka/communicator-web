@@ -130,7 +130,7 @@ export const Relationship: React.FC<Props> = ({ relationship }) => {
 
         return userFound;
       });
-      navigate(`/channels/@me/${channel?._id}`);
+      navigate(`/channels/@me/${channel?.id}`);
     } else {
       console.log('we will open modal with user data if possible');
     }
