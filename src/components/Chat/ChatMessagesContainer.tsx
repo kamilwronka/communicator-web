@@ -80,13 +80,13 @@ export const ChatMessagesContainer = forwardRef<HTMLDivElement, Props>(
 
               const shouldRenderUserDetails =
                 i === 0 ||
-                lastSender.current !== author.id ||
+                lastSender.current !== author?.id ||
                 differenceInMinutes(msgDate, prevMsgDate) >= 10;
 
               const renderDivider =
                 differenceInCalendarDays(msgDate, prevMsgDate) === 1 || i === 0;
 
-              lastSender.current = author.id;
+              lastSender.current = author?.id;
               prevDate.current = createdAt;
 
               return (

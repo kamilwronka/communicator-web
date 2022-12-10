@@ -4,7 +4,7 @@ type State = {
   [key: string]: Member[];
 };
 
-type Member = {
+export type Member = {
   id: string;
   status?: 'online' | 'offline' | 'afk';
   avatar: string;

@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
+import { useDispatch } from 'react-redux';
 import { Route, Routes, useParams } from 'react-router-dom';
 
 import { ChannelView } from './components/ChannelView/ChannelView';
@@ -8,11 +9,18 @@ import { NoTextChannelsView } from './components/NoTextChannelsView';
 
 import { GatewayEvents } from 'enums/gatewayEvents';
 
+import { useAuthToken } from '../../hooks/common/useAuthToken';
 import { useGateway } from 'hooks/useGateway';
+
+import { Member, init } from './store/membersSlice';
+
+import { apiClient } from '../../utils/apiClient';
 
 export const Server: React.FC = () => {
   const { serverId } = useParams();
   const { socket, connected } = useGateway();
+  const token = useAuthToken();
+  const dispatch = useDispatch();
 
   const setupListeners = useCallback(() => {
     socket.on(GatewayEvents.SERVER_JOIN, payload => {
@@ -49,6 +57,15 @@ export const Server: React.FC = () => {
     emitInitialEvents,
     removeListeners,
   ]);
+
+  useEffect(() => {
+    if (token && serverId) {
+      apiClient<Member[]>(`/servers/${serverId}/members`, {
+        method: 'GET',
+        token,
+      }).then(r => dispatch(init({ serverId, members: r })));
+    }
+  }, [token, serverId, dispatch]);
 
   return (
     <Routes>

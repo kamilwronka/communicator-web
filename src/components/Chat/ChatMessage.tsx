@@ -93,18 +93,14 @@ export const ChatMessage: React.FC<Props> = ({
       >
         <Box width="16" minWidth="16" display="flex" alignItems="flex-start">
           {(shouldRenderUserDetails || renderDivider) && (
-            <Avatar
-              name={author.username}
-              src={author.avatar}
-              size="md"
-            />
+            <Avatar name={author?.username} src={author?.avatar} size="md" />
           )}
         </Box>
         <Box display="flex" flexDir="column" w="full">
           {(shouldRenderUserDetails || renderDivider) && (
             <Box display="flex" flexDir="row" alignItems="baseline">
               <Text fontWeight="bold" fontSize="lg">
-                {author.username}
+                {author?.username}
               </Text>
               <Text color="gray.500" fontSize="xs" ml="2">
                 {formatDateRelative(createdAt)}
