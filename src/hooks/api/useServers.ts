@@ -7,7 +7,7 @@ import { NavigationParams } from 'navigation/types';
 
 import { apiClient } from 'utils/apiClient';
 
-import { useAuthToken } from '../common/useAuthToken';
+import { useAuthToken } from './useAuthToken';
 import { ServerChannel } from './useServerChannels';
 
 export type TServer = {

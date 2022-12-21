@@ -1,12 +1,12 @@
 import { useCallback } from 'react';
 
-import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 
 import { apiClient } from 'utils/apiClient';
 
-import { useAuthToken } from '../common/useAuthToken';
-import { TUser } from '../common/useUserData';
+import { useAuthToken } from './useAuthToken';
+import { useServers } from './useServers';
+import { TUser } from './useUserData';
 
 export type TInviteServer = {
   id: string;
@@ -14,7 +14,7 @@ export type TInviteServer = {
   server_image_url: string;
 };
 
-export type TInvite = {
+export type TServerInvite = {
   id: string;
   maxAge: number;
   maxUses: number;
@@ -22,21 +22,21 @@ export type TInvite = {
   inviter: TUser;
 };
 
-export const useInvite = () => {
-  const { inviteId } = useParams();
+export const useServerInvites = () => {
+  const { serverId } = useServers();
   const token = useAuthToken();
 
   const fetcher = useCallback(
     () =>
-      apiClient<TInvite>(`/servers/invites/${inviteId}`, {
+      apiClient<TServerInvite[]>(`/servers/${serverId}/invites`, {
         method: 'GET',
         token,
       }),
-    [token, inviteId],
+    [token, serverId],
   );
 
   const { data, error, mutate } = useSWR(
-    token && inviteId ? `/servers/invites/${inviteId}` : null,
+    token && serverId ? `/servers/${serverId}/invites` : null,
     fetcher,
   );
 

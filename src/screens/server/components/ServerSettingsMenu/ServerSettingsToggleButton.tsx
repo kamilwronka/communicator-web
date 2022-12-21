@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { HiSelector } from 'react-icons/hi';
 
-import { useServers } from 'hooks/servers/useServers';
+import { useServers } from 'hooks/api/useServers';
 
 const ServerSettingsToggleButton: React.FC<FlexProps> = (props: FlexProps) => {
   const buttonProps = useMenuButton(props);

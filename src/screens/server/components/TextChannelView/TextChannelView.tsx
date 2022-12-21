@@ -12,15 +12,15 @@ import { ChatEndMessage } from 'components/Chat/ChatEndMessage';
 
 import { GatewayEvents } from 'enums/gatewayEvents';
 
-import { useAuthToken } from 'hooks/common/useAuthToken';
-import { useUser } from 'hooks/common/useUserData';
-import { useServerChannels } from 'hooks/servers/useServerChannels';
+import { useAuthToken } from 'hooks/api/useAuthToken';
 import {
+  ChatMessage,
   EActionType,
-  TChatMessage,
   useInfiniteChatMessages,
-} from 'hooks/useChatMessages';
-import { useGateway } from 'hooks/useGateway';
+} from 'hooks/api/useChatMessages';
+import { useGateway } from 'hooks/api/useGateway';
+import { useServerChannels } from 'hooks/api/useServerChannels';
+import { useUser } from 'hooks/api/useUserData';
 
 import { apiClient } from 'utils/apiClient';
 import { imageUploadApiClient } from 'utils/imageUploadApiClient';
@@ -56,12 +56,12 @@ export const TextChannelView: React.FC = () => {
 
     const nonce = nanoid();
 
-    const newMessage: TChatMessage = {
+    const newMessage: ChatMessage = {
       nonce,
       author: user,
       content: value,
       createdAt: new Date().toISOString(),
-      channel_id: channelId,
+      channelId: channelId,
       mentions,
       attachments: files,
     };
@@ -92,7 +92,7 @@ export const TextChannelView: React.FC = () => {
       );
     }
 
-    const response = await apiClient<TChatMessage>(
+    const response = await apiClient<ChatMessage>(
       `/channels/${channelId}/messages`,
       {
         method: 'POST',
@@ -115,12 +115,9 @@ export const TextChannelView: React.FC = () => {
   }, [setPage]);
 
   const setupListeners = useCallback(() => {
-    socket.on(
-      GatewayEvents.SERVER_MESSAGE_SEND,
-      (messageData: TChatMessage) => {
-        dispatch({ type: EActionType.ADD_OR_UPDATE, payload: messageData });
-      },
-    );
+    socket.on(GatewayEvents.SERVER_MESSAGE_SEND, (messageData: ChatMessage) => {
+      dispatch({ type: EActionType.ADD_OR_UPDATE, payload: messageData });
+    });
   }, [serverId, socket]);
 
   const removeListeners = useCallback(() => {

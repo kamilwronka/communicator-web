@@ -10,7 +10,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-import { ServerChannel } from 'hooks/servers/useServerChannels';
+import { ServerChannel } from 'hooks/api/useServerChannels';
 import { useEventSubscriber } from 'hooks/useEventSubscriber';
 
 import { useTranslation } from 'react-i18next';

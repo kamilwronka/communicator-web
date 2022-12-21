@@ -5,8 +5,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { useUser } from 'hooks/common/useUserData';
-import { useServers } from 'hooks/servers/useServers';
+import { useServers } from 'hooks/api/useServers';
+import { useUser } from 'hooks/api/useUserData';
 
 import { Box, BoxProps } from '@chakra-ui/layout';
 

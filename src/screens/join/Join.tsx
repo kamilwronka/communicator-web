@@ -12,9 +12,9 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAuthToken } from 'hooks/common/useAuthToken';
-import { useInvite } from 'hooks/servers/useInvite';
-import { TServer, useServers } from 'hooks/servers/useServers';
+import { useAuthToken } from 'hooks/api/useAuthToken';
+import { useInvite } from 'hooks/api/useInvite';
+import { TServer, useServers } from 'hooks/api/useServers';
 
 import { apiClient } from 'utils/apiClient';
 

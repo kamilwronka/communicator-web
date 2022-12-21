@@ -7,7 +7,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { SearchInput } from 'components';
 import { AvatarWithStatus } from 'components/Avatar';
 
-import { useUser } from 'hooks/common/useUserData';
+import { useUser } from 'hooks/api/useUserData';
 import { usePrivateChannels } from 'hooks/usePrivateChannels';
 
 import { DirectMessagesItem } from './DirectMessagesItem';

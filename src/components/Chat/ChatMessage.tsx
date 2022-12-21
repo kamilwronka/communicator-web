@@ -5,7 +5,7 @@ import {
   CHAT_MESSAGES_SPLIT_REGEX,
 } from 'config/chat';
 
-import { Attachment, TChatMessage } from 'hooks/useChatMessages';
+import { Attachment, TChatMessage } from 'hooks/api/useGateway';
 
 import { formatDateIntl, formatDateRelative } from 'utils/date';
 

@@ -10,7 +10,7 @@ import { SearchInput } from 'components';
 
 import { GatewayEvents } from 'enums/gatewayEvents';
 
-import { useGateway } from 'hooks/useGateway';
+import { useGateway } from 'hooks/api/useGateway';
 
 import { TextChannelMember } from './TextChannelMember';
 

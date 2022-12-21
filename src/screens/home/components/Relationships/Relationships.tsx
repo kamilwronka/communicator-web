@@ -9,7 +9,7 @@ import { SearchInput } from 'components';
 import {
   ERelationshipType,
   useUserRelationships,
-} from 'hooks/common/useUserRelationships';
+} from 'hooks/api/useUserRelationships';
 
 import { Relationship } from './Relationship';
 import { RelationshipsMenu } from './RelationshipsMenu';

@@ -4,7 +4,7 @@ import { Box, Spinner, useColorModeValue as mode } from '@chakra-ui/react';
 import { differenceInCalendarDays, differenceInMinutes } from 'date-fns';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { TChatMessage } from 'hooks/useChatMessages';
+import { TChatMessage } from 'hooks/api/useChatMessages';
 
 import { ChatMessage } from './ChatMessage';
 

@@ -2,7 +2,7 @@ import { Flex, Text } from '@chakra-ui/react';
 
 import { AvatarWithStatus } from 'components/Avatar';
 
-import { TServerMember } from 'hooks/servers/useServers';
+import { TServerMember } from 'hooks/api/useServers';
 
 export const TextChannelMember: React.FC<{ member: TServerMember }> = ({
   member,

@@ -5,7 +5,7 @@ import useSWR from 'swr';
 
 import { apiClient } from 'utils/apiClient';
 
-import { useAuthToken } from './common/useAuthToken';
+import { useAuthToken } from './useAuthToken';
 
 type ChannelUser = {
   id: string;

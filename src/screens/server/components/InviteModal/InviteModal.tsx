@@ -21,16 +21,13 @@ import {
 } from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';
 
-import { useAuthToken } from 'hooks/common/useAuthToken';
+import { useAuthToken } from 'hooks/api/useAuthToken';
+import { TServerInvite, useServerInvites } from 'hooks/api/useServerInvites';
+import { useServers } from 'hooks/api/useServers';
 import {
   ERelationshipType,
   useUserRelationships,
-} from 'hooks/common/useUserRelationships';
-import {
-  TServerInvite,
-  useServerInvites,
-} from 'hooks/servers/useServerInvites';
-import { useServers } from 'hooks/servers/useServers';
+} from 'hooks/api/useUserRelationships';
 import { useEventSubscriber } from 'hooks/useEventSubscriber';
 
 import { ServerEvents } from 'screens/server/emitterEvents';

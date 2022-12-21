@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { CreateProfileWizard } from './components/CreateProfileWizard';
 
-import { useUser } from 'hooks/common/useUserData';
+import { useUser } from 'hooks/api/useUserData';
 
 export const Intro: React.FC = () => {
   const { data: user } = useUser();

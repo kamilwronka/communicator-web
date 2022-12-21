@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { AiFillFile } from 'react-icons/ai';
 
-import type { Attachment } from 'hooks/useChatMessages';
+import type { Attachment } from 'hooks/api/useGateway';
 import { useFileURL } from 'hooks/useFileURL';
 
 import { ChatMessageImagePreview } from './ChatMessageImagePreview';

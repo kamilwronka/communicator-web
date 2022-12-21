@@ -7,7 +7,7 @@ import { object, string } from 'yup';
 import { TextField } from 'components';
 import { AvatarField } from 'components';
 
-import { useAuthToken } from 'hooks/common/useAuthToken';
+import { useAuthToken } from 'hooks/api/useAuthToken';
 
 import { useTranslation } from 'react-i18next';
 

@@ -1,10 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { ChannelType } from 'types/channel';
 
-import {
-  ServerChannel,
-  useServerChannels,
-} from 'hooks/servers/useServerChannels';
+import { ServerChannel, useServerChannels } from 'hooks/api/useServerChannels';
 
 import { ChannelNavigationCategory } from './ChannelNavigationCategory';
 import { ChannelNavigationItem } from './ChannelNavigationItem';

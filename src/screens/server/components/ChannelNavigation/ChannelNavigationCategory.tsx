@@ -15,7 +15,7 @@ import { emitter } from 'eventEmitter';
 import { BiPlus } from 'react-icons/bi';
 import { useLocalStorage } from 'react-use';
 
-import { ServerChannel } from 'hooks/servers/useServerChannels';
+import { ServerChannel } from 'hooks/api/useServerChannels';
 
 import { ServerEvents } from 'screens/server/emitterEvents';
 

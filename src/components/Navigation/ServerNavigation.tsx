@@ -1,7 +1,7 @@
 import { Center, Divider } from '@chakra-ui/react';
 import isEmpty from 'lodash/isEmpty';
 
-import { useServers } from 'hooks/servers/useServers';
+import { useServers } from 'hooks/api/useServers';
 
 import { ServerNavigationItem } from './ServerNavigationItem';
 

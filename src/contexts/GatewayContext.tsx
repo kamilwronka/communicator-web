@@ -12,7 +12,7 @@ import { GATEWAY_URL } from 'config/apiConfig';
 
 import { GatewayEvents } from 'enums/gatewayEvents';
 
-import { useAuthToken } from 'hooks/common/useAuthToken';
+import { useAuthToken } from 'hooks/api/useAuthToken';
 
 export type GatewayProviderValue = {
   connected: boolean;

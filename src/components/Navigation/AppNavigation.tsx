@@ -1,7 +1,7 @@
 import { Center, Divider, Flex, VStack } from '@chakra-ui/react';
 import { matchPath, useLocation } from 'react-router-dom';
 
-import { useUser } from 'hooks/common/useUserData';
+import { useUser } from 'hooks/api/useUserData';
 
 import { AddServerButton } from './AddServerButton';
 import { NavigationItem } from './NavigationItem';

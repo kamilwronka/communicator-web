@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useLocalStorage } from 'react-use';
 import { ChannelType } from 'types/channel';
 
-import { useServerChannels } from 'hooks/servers/useServerChannels';
+import { useServerChannels } from 'hooks/api/useServerChannels';
 
 export const NoTextChannelsView: React.FC = () => {
   const { data: channels, isLoading } = useServerChannels();

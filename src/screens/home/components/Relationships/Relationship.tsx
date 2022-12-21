@@ -19,12 +19,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { AvatarWithStatus } from 'components/Avatar';
 
-import { useAuthToken } from 'hooks/common/useAuthToken';
+import { useAuthToken } from 'hooks/api/useAuthToken';
+import { usePrivateChannels } from 'hooks/api/usePrivateChannels';
 import {
   ERelationshipType,
   TUserRelationship,
-} from 'hooks/common/useUserRelationships';
-import { usePrivateChannels } from 'hooks/usePrivateChannels';
+} from 'hooks/api/useUserRelationships';
 
 import { apiClient } from 'utils/apiClient';
 

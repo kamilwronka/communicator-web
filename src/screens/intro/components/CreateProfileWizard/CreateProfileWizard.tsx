@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { Box, Button, Flex, Heading, Text, VStack } from '@chakra-ui/react';
 
 // import {Success} from 'components/animations';
-import { useUser } from 'hooks/common/useUserData';
+import { useUser } from 'hooks/api/useUserData';
 
 import { useTranslation } from 'react-i18next';
 

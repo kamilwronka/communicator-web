@@ -15,11 +15,8 @@ import { object, string } from 'yup';
 
 import { TextField } from 'components';
 
-import { useAuthToken } from 'hooks/common/useAuthToken';
-import {
-  ServerChannel,
-  useServerChannels,
-} from 'hooks/servers/useServerChannels';
+import { useAuthToken } from 'hooks/api/useAuthToken';
+import { ServerChannel, useServerChannels } from 'hooks/api/useServerChannels';
 
 import { useTranslation } from 'react-i18next';
 

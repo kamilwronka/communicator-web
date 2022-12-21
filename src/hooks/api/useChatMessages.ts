@@ -4,7 +4,7 @@ import { CHAT_MESSAGES_FETCH_LIMIT } from 'config/chat';
 
 import { apiClient } from 'utils/apiClient';
 
-import { useAuthToken } from './common/useAuthToken';
+import { useAuthToken } from './useAuthToken';
 
 export interface Author {
   id: string;
@@ -20,21 +20,21 @@ export type Attachment =
     }
   | File;
 
-export type TChatMessage = {
+export type ChatMessage = {
   id?: string;
   nonce: string;
   attachments?: Attachment[];
   author: Author;
-  channel_id?: string;
+  channelId?: string;
   content: string;
-  mention_everyone?: boolean;
-  mention_roles?: string[];
+  mentionEveryone?: boolean;
+  mentionRoles?: string[];
   mentions?: Author[];
   createdAt: string;
 };
 
 type TState = {
-  messages: TChatMessage[];
+  messages: ChatMessage[];
   loading: boolean;
   error: unknown;
   finished: boolean;
@@ -51,9 +51,9 @@ export enum EActionType {
 
 type TAction =
   | { type: EActionType.FETCH_INIT }
-  | { type: EActionType.FETCH_SUCCESS; payload: TChatMessage[] }
+  | { type: EActionType.FETCH_SUCCESS; payload: ChatMessage[] }
   | { type: EActionType.FETCH_FAILURE; payload: Error }
-  | { type: EActionType.ADD_OR_UPDATE; payload: TChatMessage }
+  | { type: EActionType.ADD_OR_UPDATE; payload: ChatMessage }
   | { type: EActionType.SET_FINISHED }
   | { type: EActionType.CLEAR };
 
@@ -127,7 +127,7 @@ export const useInfiniteChatMessages = (id: string | undefined) => {
 
       dispatch({ type: EActionType.FETCH_INIT });
 
-      apiClient<TChatMessage[]>(`/channels/${id}/messages?${query}`, {
+      apiClient<ChatMessage[]>(`/channels/${id}/messages?${query}`, {
         method: 'GET',
         token,
       })
@@ -142,8 +142,6 @@ export const useInfiniteChatMessages = (id: string | undefined) => {
         });
     }
   }, [page, token, id]);
-
-  console.log(state.loading);
 
   return {
     messages: state.messages,

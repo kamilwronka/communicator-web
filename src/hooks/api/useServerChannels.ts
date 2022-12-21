@@ -8,7 +8,7 @@ import { NavigationParams } from 'navigation/types';
 
 import { apiClient } from 'utils/apiClient';
 
-import { useAuthToken } from '../common/useAuthToken';
+import { useAuthToken } from './useAuthToken';
 
 export type ServerChannel = {
   id: string;

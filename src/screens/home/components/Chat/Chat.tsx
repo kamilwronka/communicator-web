@@ -8,15 +8,15 @@ import { ChannelType } from 'types/channel';
 import { ChatHeading, ChatInput, ChatMessagesContainer } from 'components/Chat';
 import { ChatEndMessage } from 'components/Chat/ChatEndMessage';
 
-import { useAuthToken } from 'hooks/common/useAuthToken';
-import { useUser } from 'hooks/common/useUserData';
+import { useAuthToken } from 'hooks/api/useAuthToken';
 import {
+  ChatMessage,
   EActionType,
-  TChatMessage,
   useInfiniteChatMessages,
-} from 'hooks/useChatMessages';
-import { useGateway } from 'hooks/useGateway';
-import { usePrivateChannels } from 'hooks/usePrivateChannels';
+} from 'hooks/api/useChatMessages';
+import { useGateway } from 'hooks/api/useGateway';
+import { usePrivateChannels } from 'hooks/api/usePrivateChannels';
+import { useUser } from 'hooks/api/useUserData';
 
 import { apiClient } from 'utils/apiClient';
 import { imageUploadApiClient } from 'utils/imageUploadApiClient';
@@ -43,8 +43,8 @@ export const Chat: React.FC = () => {
   const { socket, connected } = useGateway();
 
   const setupEvents = useCallback(() => {
-    socket.on(Events.MESSAGE, (messageData: TChatMessage) => {
-      if (messageData.channel_id === channelId) {
+    socket.on(Events.MESSAGE, (messageData: ChatMessage) => {
+      if (messageData.channelId === channelId) {
         dispatch({ type: EActionType.ADD_OR_UPDATE, payload: messageData });
       }
     });
@@ -87,12 +87,11 @@ export const Chat: React.FC = () => {
 
     const nonce = nanoid();
 
-    const newMessage: TChatMessage = {
+    const newMessage: ChatMessage = {
       nonce,
       author: user,
       content: value,
       createdAt: new Date().toISOString(),
-      channel_id: channelId,
       mentions,
       attachments: files,
     };
@@ -123,7 +122,7 @@ export const Chat: React.FC = () => {
       );
     }
 
-    const response = await apiClient<TChatMessage>(
+    const response = await apiClient<ChatMessage>(
       `/channels/${channelId}/messages`,
       {
         method: 'POST',

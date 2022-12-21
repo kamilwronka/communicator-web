@@ -5,7 +5,7 @@ import { IoMdSettings } from 'react-icons/io';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChannelType } from 'types/channel';
 
-import { ServerChannel } from 'hooks/servers/useServerChannels';
+import { ServerChannel } from 'hooks/api/useServerChannels';
 
 type Props = {
   channel: ServerChannel;

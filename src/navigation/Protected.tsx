@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useUser } from 'hooks/common/useUserData';
+import { useUser } from 'hooks/api/useUserData';
 
 type Props = {
   children: React.ReactElement;

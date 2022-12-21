@@ -17,9 +17,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { AvatarField, TextField } from 'components/Form';
 
-import { useAuthToken } from 'hooks/common/useAuthToken';
-import { useUser } from 'hooks/common/useUserData';
-import { TServer, useServers } from 'hooks/servers/useServers';
+import { useAuthToken } from 'hooks/api/useAuthToken';
+import { TServer, useServers } from 'hooks/api/useServers';
+import { useUser } from 'hooks/api/useUserData';
 
 import { apiClient } from 'utils/apiClient';
 
@@ -60,7 +60,6 @@ export const AddServerModal: React.FC<Props> = ({ isOpen, onClose }) => {
       onClose();
       navigate(`/channels/${response.id}`);
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
     }
   };

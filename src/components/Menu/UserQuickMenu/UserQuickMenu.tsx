@@ -5,7 +5,7 @@ import { ToggleSoundButton } from './components/ToggleSoundButton';
 import { ToggleUserSettingsModalButton } from './components/ToggleUserSettingsModalButton';
 import { AvatarWithStatus } from 'components/Avatar';
 
-import { useUser } from 'hooks/common/useUserData';
+import { useUser } from 'hooks/api/useUserData';
 
 export const UserQuickMenu: React.FC = props => {
   const { data: user } = useUser();

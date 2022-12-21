@@ -25,8 +25,8 @@ import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import { BsSearch } from 'react-icons/bs';
 
-import { useAuthToken } from 'hooks/common/useAuthToken';
-import { TUserRelationship } from 'hooks/common/useUserRelationships';
+import { useAuthToken } from 'hooks/api/useAuthToken';
+import { TUserRelationship } from 'hooks/api/useUserRelationships';
 
 import { apiClient } from 'utils/apiClient';
 
