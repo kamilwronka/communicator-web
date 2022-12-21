@@ -21,8 +21,6 @@ import { ServerChannel, useServerChannels } from 'hooks/api/useServerChannels';
 
 import { useTranslation } from 'react-i18next';
 
-import { NavigationParams } from 'navigation/types';
-
 import { apiClient } from 'utils/apiClient';
 
 type Props = {
@@ -40,7 +38,7 @@ const MAX_CHARACTERS = 128;
 
 export const CreateChannelForm: React.FC<Props> = ({ onClose, parent }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { serverId } = useParams<NavigationParams>();
+  const { serverId } = useParams();
   const token = useAuthToken();
   const { mutate } = useServerChannels();
   const navigate = useNavigate();

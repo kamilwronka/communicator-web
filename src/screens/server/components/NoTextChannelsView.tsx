@@ -3,9 +3,11 @@ import { useEffect, useMemo } from 'react';
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useLocalStorage } from 'react-use';
-import { ChannelType } from 'types/channel';
 
-import { useServerChannels } from 'hooks/api/useServerChannels';
+import {
+  ServerChannelType,
+  useServerChannels,
+} from 'hooks/api/useServerChannels';
 
 export const NoTextChannelsView: React.FC = () => {
   const { data: channels, isLoading } = useServerChannels();
@@ -24,7 +26,7 @@ export const NoTextChannelsView: React.FC = () => {
       }
       if (channels) {
         const defaultTextChannel = channels.find(
-          channel => channel.type === ChannelType.TEXT,
+          channel => channel.type === ServerChannelType.TEXT,
         );
         return defaultTextChannel
           ? `${basePath}/${defaultTextChannel.id}`

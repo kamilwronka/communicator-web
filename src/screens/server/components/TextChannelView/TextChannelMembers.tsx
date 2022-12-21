@@ -1,91 +1,74 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Box, Divider, Flex, Heading } from '@chakra-ui/react';
 import { Reorder } from 'framer-motion';
 import noop from 'lodash/noop';
-import { useParams } from 'react-router-dom';
-import { User } from 'types/user';
 
 import { SearchInput } from 'components';
 
-import { GatewayEvents } from 'enums/gatewayEvents';
-
-import { useGateway } from 'hooks/api/useGateway';
+import { useServerMembers } from 'hooks/api/useServerMembers';
 
 import { TextChannelMember } from './TextChannelMember';
 
-type Member = Pick<User, 'id'> & {
-  status: 'online' | 'offline' | 'afk';
-};
-
-const testData = [
-  {
-    id: '6rVlBZr4Lgv0A8aysspJV',
-    username: 'hahatest',
-  },
-];
-
 export const TextChannelMembers: React.FC = () => {
-  const [searchValue, setSearchValue] = useState('');
-  const [onlineMembers, setOnlineMembers] = useState<Member[]>([]);
-  const { socket, connected } = useGateway();
-  const { serverId } = useParams();
+  const [, setSearchValue] = useState('');
+  const { data: members } = useServerMembers();
 
   const handleSearchInputChange = (query: string) => {
     setSearchValue(query);
   };
 
-  const emitInitialEvents = useCallback(() => {
-    socket.emit(GatewayEvents.SERVER_PRESENCE_REQUEST, { serverId });
-  }, [serverId, socket]);
+  // const emitInitialEvents = useCallback(() => {
+  //   socket.emit(GatewayEvents.SERVER_PRESENCE_REQUEST, { serverId });
+  // }, [serverId, socket]);
 
-  const setupListeners = useCallback(() => {
-    socket.on(GatewayEvents.SERVER_PRESENCE_REQUEST, (users: Member[]) => {
-      setOnlineMembers(users);
-    });
+  // const setupListeners = useCallback(() => {
+  //   socket.on(GatewayEvents.SERVER_PRESENCE_REQUEST, (users: Member[]) => {
+  //     setOnlineMembers(users);
+  //   });
 
-    socket.on(GatewayEvents.SERVER_PRESENCE_UPDATE, (user: Member) => {
-      setOnlineMembers(currentState => {
-        if (user.status === 'online') {
-          return [
-            ...new Map(
-              [...currentState, user].map((item: any) => [item.id, item]),
-            ).values(),
-          ];
-        }
+  //   socket.on(GatewayEvents.SERVER_PRESENCE_UPDATE, (user: Member) => {
+  //     setOnlineMembers(currentState => {
+  //       if (user.status === 'online') {
+  //         return [
+  //           ...new Map(
+  //             [...currentState, user].map((item: any) => [item.id, item]),
+  //           ).values(),
+  //         ];
+  //       }
 
-        if (user.status === 'offline') {
-          return currentState.filter(member => member.id !== user.id);
-        }
+  //       if (user.status === 'offline') {
+  //         return currentState.filter(member => member.id !== user.id);
+  //       }
 
-        if (user.status === 'afk') {
-          return currentState.map(member => {
-            return member.id === user.id ? user : member;
-          });
-        }
+  //       if (user.status === 'afk') {
+  //         return currentState.map(member => {
+  //           return member.id === user.id ? user : member;
+  //         });
+  //       }
 
-        return currentState;
-      });
-    });
-  }, [socket]);
+  //       return currentState;
+  //     });
+  //   });
+  // }, [socket]);
 
-  const removeListeners = useCallback(() => {
-    socket.off(GatewayEvents.SERVER_PRESENCE_UPDATE);
-    socket.off(GatewayEvents.SERVER_PRESENCE_REQUEST);
-  }, [socket]);
+  // const removeListeners = useCallback(() => {
+  //   socket.off(GatewayEvents.SERVER_PRESENCE_UPDATE);
+  //   socket.off(GatewayEvents.SERVER_PRESENCE_REQUEST);
+  // }, [socket]);
 
-  useEffect(() => {
-    if (connected) {
-      setupListeners();
-      emitInitialEvents();
-    }
+  // useEffect(() => {
+  //   if (connected) {
+  //     setupListeners();
+  //     emitInitialEvents();
+  //   }
 
-    return () => {
-      if (connected && socket) {
-        removeListeners();
-      }
-    };
-  }, [connected, socket]);
+  //   return () => {
+  //     if (connected && socket) {
+  //       removeListeners();
+  //     }
+  //   };
+  // }, [connected, socket]);
 
   return (
     <Flex bg="gray.800" w="80" h="full" color="white" flexDir="column">
@@ -124,12 +107,12 @@ export const TextChannelMembers: React.FC = () => {
       >
         <Reorder.Group
           axis="y"
-          values={onlineMembers ? onlineMembers : []}
+          values={members ? members : []}
           layoutScroll
           style={{ listStyleType: 'none' }}
           onReorder={noop}
         >
-          {onlineMembers?.map(member => {
+          {members?.map(member => {
             return (
               <Reorder.Item
                 dragListener={false}
@@ -141,7 +124,6 @@ export const TextChannelMembers: React.FC = () => {
                 value={member}
                 transition={{ stiffness: 250, duration: 0.2 }}
               >
-                {/* @ts-ignore */}
                 <TextChannelMember member={member} />
               </Reorder.Item>
             );

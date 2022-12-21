@@ -7,8 +7,8 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { SearchInput } from 'components';
 import { AvatarWithStatus } from 'components/Avatar';
 
+import { usePrivateChannels } from 'hooks/api/usePrivateChannels';
 import { useUser } from 'hooks/api/useUserData';
-import { usePrivateChannels } from 'hooks/usePrivateChannels';
 
 import { DirectMessagesItem } from './DirectMessagesItem';
 
@@ -82,7 +82,7 @@ export const DirectMessages: React.FC = () => {
                       <AvatarWithStatus
                         status="online"
                         name={desiredUser?.username}
-                        src={desiredUser?.profilePictureUrl}
+                        src={desiredUser?.avatar}
                       />
                     </Box>
                     <Box display="flex" alignItems="center" pl="2">

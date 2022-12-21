@@ -1,16 +1,28 @@
 import { MentionData } from '@draft-js-plugins/mention';
-import { ChannelMember } from 'types/channel';
-import { ServerMember } from 'types/server';
 
-export const mapToSuggestions = (
-  users: ChannelMember[] | ServerMember[] = [],
+import { ServerMember } from '../hooks/api/useServerMembers';
+import { User } from '../hooks/api/useUserData';
+
+export const mapMembersToSuggestions = (
+  members: ServerMember[] = [],
 ): MentionData[] => {
-  return users.map(user => {
+  return members.map(({ user: { avatar, username, id } }) => {
     return {
-      avatar: user.profilePictureUrl,
-      name: user.username,
-      username: user.username,
-      id: user.id,
+      avatar,
+      name: username,
+      username,
+      id,
+    };
+  });
+};
+
+export const mapUsersToSuggestions = (users: User[] = []): MentionData[] => {
+  return users.map(({ avatar, id, username }) => {
+    return {
+      avatar,
+      name: username,
+      username,
+      id,
     };
   });
 };

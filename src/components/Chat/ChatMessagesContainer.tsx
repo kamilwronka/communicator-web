@@ -4,12 +4,12 @@ import { Box, Spinner, useColorModeValue as mode } from '@chakra-ui/react';
 import { differenceInCalendarDays, differenceInMinutes } from 'date-fns';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { TChatMessage } from 'hooks/api/useChatMessages';
+import { ChatMessage as ChatMessageType } from 'hooks/api/useChatMessages';
 
 import { ChatMessage } from './ChatMessage';
 
 type Props = {
-  messages: TChatMessage[];
+  messages: ChatMessageType[];
   onScroll: () => void;
   finished: boolean;
   loading: boolean;

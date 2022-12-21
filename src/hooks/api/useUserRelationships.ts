@@ -5,7 +5,7 @@ import useSWR from 'swr';
 import { apiClient } from 'utils/apiClient';
 
 import { useAuthToken } from './useAuthToken';
-import { TUser } from './useUserData';
+import { User } from './useUserData';
 
 export enum ERelationshipType {
   ACCEPTED = 'ACCEPTED',
@@ -17,7 +17,7 @@ export enum ERelationshipType {
 export type TUserRelationship = {
   id: number;
   type: ERelationshipType;
-  user: TUser;
+  user: User;
 };
 
 export const useUserRelationships = () => {

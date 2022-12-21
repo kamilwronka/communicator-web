@@ -6,10 +6,9 @@ import { apiClient } from 'utils/apiClient';
 
 import { useAuthToken } from './useAuthToken';
 
-export type TUser = {
+export type User = {
   id: string;
-  email: string;
-  profile_created: boolean;
+  email?: string;
   username: string;
   avatar: string;
 };
@@ -18,7 +17,7 @@ export const useUser = () => {
   const token = useAuthToken();
 
   const fetcher = useCallback(
-    () => apiClient<TUser>('/users/me', { method: 'GET', token }),
+    () => apiClient<User>('/users/me', { method: 'GET', token }),
     [token],
   );
 

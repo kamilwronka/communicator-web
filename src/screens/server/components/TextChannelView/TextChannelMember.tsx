@@ -2,11 +2,13 @@ import { Flex, Text } from '@chakra-ui/react';
 
 import { AvatarWithStatus } from 'components/Avatar';
 
-import { TServerMember } from 'hooks/api/useServers';
+import { ServerMember } from 'hooks/api/useServerMembers';
 
-export const TextChannelMember: React.FC<{ member: TServerMember }> = ({
-  member,
-}) => {
+type Props = {
+  member: ServerMember;
+};
+
+export const TextChannelMember: React.FC<Props> = ({ member }) => {
   return (
     <Flex
       flexDir="row"
@@ -22,10 +24,10 @@ export const TextChannelMember: React.FC<{ member: TServerMember }> = ({
     >
       <AvatarWithStatus
         status="online"
-        name={member.username}
-        src={member.avatar}
+        name={member.user.username}
+        src={member.user.avatar}
       />
-      <Text ml="4">{member.username}</Text>
+      <Text ml="4">{member.user.username}</Text>
     </Flex>
   );
 };

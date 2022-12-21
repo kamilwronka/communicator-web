@@ -1,10 +1,10 @@
 import { Text } from '@chakra-ui/react';
 
-import { Author } from 'hooks/api/useGateway';
+import { User } from '../../hooks/api/useUserData';
 
 type Props = {
   optimistic: boolean;
-  mention: Author | undefined;
+  mention: User | undefined;
 };
 
 export const ChatMention: React.FC<Props> = ({ mention, optimistic }) => {

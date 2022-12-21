@@ -5,7 +5,6 @@ import isEmpty from 'lodash/isEmpty';
 import { nanoid } from 'nanoid';
 import { BsHash } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
-import { ChannelType } from 'types/channel';
 
 import { ChatHeading, ChatInput, ChatMessagesContainer } from 'components';
 import { ChatEndMessage } from 'components/Chat/ChatEndMessage';
@@ -19,7 +18,10 @@ import {
   useInfiniteChatMessages,
 } from 'hooks/api/useChatMessages';
 import { useGateway } from 'hooks/api/useGateway';
-import { useServerChannels } from 'hooks/api/useServerChannels';
+import {
+  ServerChannelType,
+  useServerChannels,
+} from 'hooks/api/useServerChannels';
 import { useUser } from 'hooks/api/useUserData';
 
 import { apiClient } from 'utils/apiClient';
@@ -118,7 +120,7 @@ export const TextChannelView: React.FC = () => {
     socket.on(GatewayEvents.SERVER_MESSAGE_SEND, (messageData: ChatMessage) => {
       dispatch({ type: EActionType.ADD_OR_UPDATE, payload: messageData });
     });
-  }, [serverId, socket]);
+  }, [socket, dispatch]);
 
   const removeListeners = useCallback(() => {
     socket.off(GatewayEvents.SERVER_MESSAGE_SEND);
@@ -134,7 +136,7 @@ export const TextChannelView: React.FC = () => {
         removeListeners();
       }
     };
-  }, [connected, socket, serverId]);
+  }, [connected, socket, serverId, removeListeners, setupListeners]);
 
   return (
     <Flex direction="row" height="full">
@@ -150,7 +152,7 @@ export const TextChannelView: React.FC = () => {
           messages={messages}
           endMessage={
             <ChatEndMessage
-              type={ChannelType.TEXT}
+              type={ServerChannelType.TEXT}
               name={selectedChannel?.name}
             />
           }

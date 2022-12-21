@@ -1,9 +1,11 @@
 import { Avatar, Box, Circle, Icon, Text } from '@chakra-ui/react';
 import { BsHash } from 'react-icons/bs';
-import { ChannelType } from 'types/channel';
+
+import { PrivateChannelType } from 'hooks/api/usePrivateChannels';
+import { ServerChannelType } from 'hooks/api/useServerChannels';
 
 type Props = {
-  type: ChannelType.TEXT | ChannelType.PRIVATE;
+  type: ServerChannelType.TEXT | PrivateChannelType.PRIVATE;
   name?: string;
   imgSrc?: string;
 };
@@ -18,7 +20,7 @@ export const ChatEndMessage: React.FC<Props> = ({ name, type, imgSrc }) => {
       px="6"
       mb="10"
     >
-      {type === ChannelType.PRIVATE && (
+      {type === PrivateChannelType.PRIVATE && (
         <>
           <Avatar size="xl" name={name} src={imgSrc} />
           <Text
@@ -36,7 +38,7 @@ export const ChatEndMessage: React.FC<Props> = ({ name, type, imgSrc }) => {
           </Text>
         </>
       )}
-      {type === ChannelType.TEXT && (
+      {type === ServerChannelType.TEXT && (
         <>
           <Circle size="16" bg="gray.600">
             <Icon as={BsHash} width="12" height="12" />

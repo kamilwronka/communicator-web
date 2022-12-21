@@ -1,11 +1,10 @@
-import { Box, Flex, IconButton, Text, Tooltip } from '@chakra-ui/react';
+import { Flex, IconButton, Text, Tooltip } from '@chakra-ui/react';
 import { BiUserVoice } from 'react-icons/bi';
 import { BsHash } from 'react-icons/bs';
 import { IoMdSettings } from 'react-icons/io';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ChannelType } from 'types/channel';
 
-import { ServerChannel } from 'hooks/api/useServerChannels';
+import { ServerChannel, ServerChannelType } from 'hooks/api/useServerChannels';
 
 type Props = {
   channel: ServerChannel;
@@ -19,9 +18,9 @@ export const ChannelNavigationItem: React.FC<Props> = ({ channel }) => {
 
   const renderChannelIcon = () => {
     switch (channel.type) {
-      case ChannelType.TEXT:
+      case ServerChannelType.TEXT:
         return <BsHash fontSize="1.6rem" />;
-      case ChannelType.VOICE:
+      case ServerChannelType.VOICE:
         return <BiUserVoice fontSize="1.6rem" />;
       default:
         return null;

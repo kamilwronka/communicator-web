@@ -6,7 +6,7 @@ import { apiClient } from 'utils/apiClient';
 
 import { useAuthToken } from './useAuthToken';
 import { useServers } from './useServers';
-import { TUser } from './useUserData';
+import { User } from './useUserData';
 
 export type TInviteServer = {
   id: string;
@@ -19,7 +19,7 @@ export type TServerInvite = {
   maxAge: number;
   maxUses: number;
   server: TInviteServer;
-  inviter: TUser;
+  inviter: User;
 };
 
 export const useServerInvites = () => {

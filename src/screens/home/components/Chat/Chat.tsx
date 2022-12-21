@@ -3,7 +3,6 @@ import { useCallback, useEffect } from 'react';
 import { Divider, Flex } from '@chakra-ui/react';
 import isEmpty from 'lodash/isEmpty';
 import { nanoid } from 'nanoid';
-import { ChannelType } from 'types/channel';
 
 import { ChatHeading, ChatInput, ChatMessagesContainer } from 'components/Chat';
 import { ChatEndMessage } from 'components/Chat/ChatEndMessage';
@@ -15,12 +14,15 @@ import {
   useInfiniteChatMessages,
 } from 'hooks/api/useChatMessages';
 import { useGateway } from 'hooks/api/useGateway';
-import { usePrivateChannels } from 'hooks/api/usePrivateChannels';
+import {
+  PrivateChannelType,
+  usePrivateChannels,
+} from 'hooks/api/usePrivateChannels';
 import { useUser } from 'hooks/api/useUserData';
 
 import { apiClient } from 'utils/apiClient';
 import { imageUploadApiClient } from 'utils/imageUploadApiClient';
-import { mapToSuggestions } from 'utils/mapToSuggestions';
+import { mapUsersToSuggestions } from 'utils/mapToSuggestions';
 
 enum Events {
   MESSAGE = 'message',
@@ -147,7 +149,7 @@ export const Chat: React.FC = () => {
   const chatPartner = selectedChannel?.users.find(
     participant => participant.id !== user?.id,
   );
-  const suggestions = mapToSuggestions(selectedChannel?.users);
+  const suggestions = mapUsersToSuggestions(selectedChannel?.users);
 
   return (
     <Flex flex="1" width="full" flexDirection="column" height="full">
@@ -160,7 +162,7 @@ export const Chat: React.FC = () => {
         loading={loading}
         endMessage={
           <ChatEndMessage
-            type={ChannelType.PRIVATE}
+            type={PrivateChannelType.PRIVATE}
             name={chatPartner?.username}
           />
         }

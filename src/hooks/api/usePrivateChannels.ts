@@ -6,18 +6,17 @@ import useSWR from 'swr';
 import { apiClient } from 'utils/apiClient';
 
 import { useAuthToken } from './useAuthToken';
+import { User } from './useUserData';
 
-type ChannelUser = {
-  id: string;
-  profilePictureUrl: string;
-  username: string;
-};
+export enum PrivateChannelType {
+  PRIVATE = 'PRIVATE',
+}
 
 export type TPrivateChannel = {
   id: string;
   server_id?: any;
-  type: string;
-  users: ChannelUser[];
+  users: User[];
+  type: PrivateChannelType;
 };
 
 export const usePrivateChannels = () => {

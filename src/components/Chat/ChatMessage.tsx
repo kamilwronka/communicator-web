@@ -5,7 +5,10 @@ import {
   CHAT_MESSAGES_SPLIT_REGEX,
 } from 'config/chat';
 
-import { Attachment, TChatMessage } from 'hooks/api/useGateway';
+import {
+  Attachment,
+  ChatMessage as ChatMessageType,
+} from '../../hooks/api/useChatMessages';
 
 import { formatDateIntl, formatDateRelative } from 'utils/date';
 
@@ -14,7 +17,7 @@ import { ChatMessageAttachment } from './ChatMessageAttachment';
 
 export interface Props {
   shouldRenderUserDetails?: boolean;
-  message: TChatMessage;
+  message: ChatMessageType;
   optimistic: boolean;
   renderDivider: boolean;
 }

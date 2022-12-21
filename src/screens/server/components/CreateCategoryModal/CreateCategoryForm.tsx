@@ -10,17 +10,18 @@ import {
 import { Form, Formik } from 'formik';
 import isEmpty from 'lodash/isEmpty';
 import { useParams } from 'react-router-dom';
-import { ChannelType } from 'types/channel';
 import { object, string } from 'yup';
 
 import { TextField } from 'components';
 
 import { useAuthToken } from 'hooks/api/useAuthToken';
-import { ServerChannel, useServerChannels } from 'hooks/api/useServerChannels';
+import {
+  ServerChannel,
+  ServerChannelType,
+  useServerChannels,
+} from 'hooks/api/useServerChannels';
 
 import { useTranslation } from 'react-i18next';
-
-import { NavigationParams } from 'navigation/types';
 
 import { apiClient } from 'utils/apiClient';
 
@@ -37,7 +38,7 @@ const MAX_CHARACTERS = 30;
 
 export const CreateCategoryForm: React.FC<Props> = ({ onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { serverId } = useParams<NavigationParams>();
+  const { serverId } = useParams();
   const token = useAuthToken();
   const { mutate } = useServerChannels();
   const { t } = useTranslation('server', { keyPrefix: 'forms.createCategory' });
@@ -58,7 +59,7 @@ export const CreateCategoryForm: React.FC<Props> = ({ onClose }) => {
     try {
       const response = await apiClient<ServerChannel>(`/channels`, {
         method: 'POST',
-        data: { name: values.name, type: ChannelType.PARENT, serverId },
+        data: { name: values.name, type: ServerChannelType.PARENT, serverId },
         token,
       });
       mutate(

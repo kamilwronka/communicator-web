@@ -5,12 +5,7 @@ import { CHAT_MESSAGES_FETCH_LIMIT } from 'config/chat';
 import { apiClient } from 'utils/apiClient';
 
 import { useAuthToken } from './useAuthToken';
-
-export interface Author {
-  id: string;
-  username: string;
-  avatar: string;
-}
+import { User } from './useUserData';
 
 export type Attachment =
   | {
@@ -24,12 +19,12 @@ export type ChatMessage = {
   id?: string;
   nonce: string;
   attachments?: Attachment[];
-  author: Author;
+  author: User;
   channelId?: string;
   content: string;
   mentionEveryone?: boolean;
   mentionRoles?: string[];
-  mentions?: Author[];
+  mentions?: User[];
   createdAt: string;
 };
 

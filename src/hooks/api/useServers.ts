@@ -3,8 +3,6 @@ import { useCallback, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 
-import { NavigationParams } from 'navigation/types';
-
 import { apiClient } from 'utils/apiClient';
 
 import { useAuthToken } from './useAuthToken';
@@ -27,7 +25,7 @@ export type TServerMember = {
 
 export const useServers = () => {
   const token = useAuthToken();
-  const { serverId } = useParams<NavigationParams>();
+  const { serverId } = useParams();
 
   const fetcher = useCallback(
     () => apiClient<TServer[]>('/servers', { method: 'GET', token }),

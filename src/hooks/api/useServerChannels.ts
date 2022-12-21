@@ -2,18 +2,21 @@ import { useCallback } from 'react';
 
 import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
-import { ChannelType } from 'types/channel';
-
-import { NavigationParams } from 'navigation/types';
 
 import { apiClient } from 'utils/apiClient';
 
 import { useAuthToken } from './useAuthToken';
 
+export enum ServerChannelType {
+  TEXT = 'TEXT',
+  VOICE = 'VOICE',
+  PARENT = 'PARENT',
+}
+
 export type ServerChannel = {
   id: string;
   serverId: any;
-  type: ChannelType;
+  type: ServerChannelType;
   name: string;
   children: ServerChannel[];
   parentId?: string;
@@ -21,7 +24,7 @@ export type ServerChannel = {
 
 export const useServerChannels = () => {
   const token = useAuthToken();
-  const { serverId, channelId } = useParams<NavigationParams>();
+  const { serverId, channelId } = useParams();
 
   const fetcher = useCallback(
     () =>

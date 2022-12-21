@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
 import { useLocalStorage } from 'react-use';
-import { ChannelType } from 'types/channel';
 
+import { ServerChannelType } from 'hooks/api/useServerChannels';
 import { useServerChannels } from 'hooks/api/useServerChannels';
 
 import { TextChannelView } from '../TextChannelView/TextChannelView';
@@ -22,7 +22,7 @@ export const ChannelView: React.FC = () => {
 
   const renderChannelView = () => {
     switch (selectedChannel?.type) {
-      case ChannelType.TEXT:
+      case ServerChannelType.TEXT:
         return <TextChannelView />;
       default:
         return null;

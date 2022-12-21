@@ -1,7 +1,10 @@
 import { Box, Flex } from '@chakra-ui/react';
-import { ChannelType } from 'types/channel';
 
-import { ServerChannel, useServerChannels } from 'hooks/api/useServerChannels';
+import {
+  ServerChannel,
+  ServerChannelType,
+  useServerChannels,
+} from 'hooks/api/useServerChannels';
 
 import { ChannelNavigationCategory } from './ChannelNavigationCategory';
 import { ChannelNavigationItem } from './ChannelNavigationItem';
@@ -18,11 +21,11 @@ export const ChannelNavigation: React.FC = () => {
   const { data: channels } = useServerChannels();
 
   const sortedTree = channels?.sort((a: any, b: any) => {
-    if (a.type === ChannelType.PARENT) {
+    if (a.type === ServerChannelType.PARENT) {
       return 1;
     }
 
-    if (b.type === ChannelType.PARENT) {
+    if (b.type === ServerChannelType.PARENT) {
       return -1;
     }
 
@@ -40,7 +43,7 @@ export const ChannelNavigation: React.FC = () => {
         );
       }
 
-      if (channel.type === ChannelType.PARENT) {
+      if (channel.type === ServerChannelType.PARENT) {
         return <ChannelNavigationCategory key={channel.id} channel={channel} />;
       }
 
