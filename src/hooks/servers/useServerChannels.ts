@@ -25,7 +25,7 @@ export const useServerChannels = () => {
 
   const fetcher = useCallback(
     () =>
-      apiClient<ServerChannel[]>(`/servers/${serverId}/channels`, {
+      apiClient<ServerChannel[]>(`/channels?serverId=${serverId}`, {
         method: 'GET',
         token,
       }),
@@ -33,7 +33,7 @@ export const useServerChannels = () => {
   );
 
   const { data, error, mutate } = useSWR(
-    token && serverId ? `/servers/${serverId}/channels` : null,
+    token && serverId ? `/channels?serverId=${serverId}` : null,
     fetcher,
     { fallbackData: [] },
   );

@@ -31,7 +31,7 @@ export const usePrivateChannels = () => {
 
   const fetcher = useCallback(
     () =>
-      apiClient<TPrivateChannel[]>('/users/me/channels', {
+      apiClient<TPrivateChannel[]>('/channels/me', {
         method: 'GET',
         token,
       }),
@@ -39,7 +39,7 @@ export const usePrivateChannels = () => {
   );
 
   const { data, error, mutate } = useSWR(
-    token ? `/users/me/channels` : null,
+    token ? `/channels/me` : null,
     fetcher,
   );
 

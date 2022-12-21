@@ -59,14 +59,11 @@ export const CreateCategoryForm: React.FC<Props> = ({ onClose }) => {
   const handleSubmit = async (values: FormValues) => {
     setIsLoading(true);
     try {
-      const response = await apiClient<ServerChannel>(
-        `/servers/${serverId}/channels`,
-        {
-          method: 'POST',
-          data: { name: values.name, type: ChannelType.PARENT },
-          token,
-        },
-      );
+      const response = await apiClient<ServerChannel>(`/channels`, {
+        method: 'POST',
+        data: { name: values.name, type: ChannelType.PARENT, serverId },
+        token,
+      });
       mutate(
         data => {
           if (data) {

@@ -28,7 +28,7 @@ export const useInvite = () => {
 
   const fetcher = useCallback(
     () =>
-      apiClient<TInvite>(`/invites/${inviteId}`, {
+      apiClient<TInvite>(`/servers/invites/${inviteId}`, {
         method: 'GET',
         token,
       }),
@@ -36,7 +36,7 @@ export const useInvite = () => {
   );
 
   const { data, error, mutate } = useSWR(
-    token && inviteId ? `/invites/${inviteId}` : null,
+    token && inviteId ? `/servers/invites/${inviteId}` : null,
     fetcher,
   );
 

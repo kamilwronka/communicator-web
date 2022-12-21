@@ -1,7 +1,5 @@
 import { useEffect, useReducer, useRef, useState } from 'react';
 
-import { useToast } from '@chakra-ui/react';
-
 import { CHAT_MESSAGES_FETCH_LIMIT } from 'config/chat';
 
 import { apiClient } from 'utils/apiClient';
@@ -104,7 +102,6 @@ const INITIAL_STATE: TState = {
 export const useInfiniteChatMessages = (id: string | undefined) => {
   const token = useAuthToken();
   const [page, setPage] = useState(0);
-  const toast = useToast();
 
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
@@ -141,21 +138,19 @@ export const useInfiniteChatMessages = (id: string | undefined) => {
           dispatch({ type: EActionType.FETCH_SUCCESS, payload: response });
         })
         .catch(error => {
-          toast({
-            description: 'Unable to fetch messages',
-            position: 'top-right',
-            title: 'Error',
-          });
+          dispatch({ type: EActionType.FETCH_FAILURE, payload: error });
         });
     }
-  }, [page, token, id, toast]);
+  }, [page, token, id]);
+
+  console.log(state.loading);
 
   return {
     messages: state.messages,
     setPage,
     page,
     dispatch,
-    finished: state.finished,
+    finished: state.finished || !!state.error,
     loading: state.loading,
   };
 };

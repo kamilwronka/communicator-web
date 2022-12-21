@@ -63,17 +63,15 @@ export const CreateChannelForm: React.FC<Props> = ({ onClose, parent }) => {
   const handleSubmit = async (values: FormValues) => {
     setIsLoading(true);
     try {
-      const response = await apiClient<ServerChannel>(
-        `/servers/${serverId}/channels`,
-        {
-          method: 'POST',
-          data: {
-            ...values,
-            parentId: parent?.id,
-          },
-          token,
+      const response = await apiClient<ServerChannel>(`/channels`, {
+        method: 'POST',
+        data: {
+          ...values,
+          parentId: parent?.id,
+          serverId,
         },
-      );
+        token,
+      });
       mutate(
         data => {
           if (data) {

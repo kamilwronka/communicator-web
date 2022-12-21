@@ -30,14 +30,11 @@ export const useServers = () => {
   const { serverId } = useParams<NavigationParams>();
 
   const fetcher = useCallback(
-    () => apiClient<TServer[]>('/users/me/servers', { method: 'GET', token }),
+    () => apiClient<TServer[]>('/servers', { method: 'GET', token }),
     [token],
   );
 
-  const { data, error, mutate } = useSWR(
-    token ? `/users/me/servers` : null,
-    fetcher,
-  );
+  const { data, error, mutate } = useSWR(token ? `/servers` : null, fetcher);
 
   const selectedServer = useMemo(
     () => data?.find(server => server.id === serverId),
