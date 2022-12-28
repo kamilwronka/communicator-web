@@ -35,7 +35,8 @@ export const ChatMessage: React.FC<Props> = ({
 
     return parts.filter(String).map((part, i) => {
       if (CHAT_MESSAGES_SPLIT_REGEX.test(part)) {
-        const computedId = part.match(CHAT_MESSAGES_RETRIEVE_USER_ID_REGEX);
+        // const computedId = part.match(CHAT_MESSAGES_RETRIEVE_USER_ID_REGEX);
+        const computedId = CHAT_MESSAGES_RETRIEVE_USER_ID_REGEX.exec(part)![3];
 
         const mention = mentions?.find(mention => {
           if (computedId && computedId.length > 0) {
