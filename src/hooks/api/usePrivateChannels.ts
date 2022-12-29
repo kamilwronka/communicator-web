@@ -12,9 +12,9 @@ export enum PrivateChannelType {
   PRIVATE = 'PRIVATE',
 }
 
-export type TPrivateChannel = {
+export type PrivateChannel = {
   id: string;
-  server_id?: any;
+  serverId?: any;
   users: User[];
   type: PrivateChannelType;
 };
@@ -30,7 +30,7 @@ export const usePrivateChannels = () => {
 
   const fetcher = useCallback(
     () =>
-      apiClient<TPrivateChannel[]>('/channels/me', {
+      apiClient<PrivateChannel[]>('/channels/me', {
         method: 'GET',
         token,
       }),

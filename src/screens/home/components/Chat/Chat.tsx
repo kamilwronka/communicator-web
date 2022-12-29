@@ -42,37 +42,37 @@ export const Chat: React.FC = () => {
   const { setPage, finished, loading, messages, dispatch } =
     useInfiniteChatMessages(channelId);
 
-  const { socket, connected } = useGateway();
+  // const { socket, connected } = useGateway();
 
-  const setupEvents = useCallback(() => {
-    socket.on(Events.MESSAGE, (messageData: ChatMessage) => {
-      if (messageData.channelId === channelId) {
-        dispatch({ type: EActionType.ADD_OR_UPDATE, payload: messageData });
-      }
-    });
-  }, [socket, dispatch, channelId]);
+  // const setupEvents = useCallback(() => {
+  //   socket.on(Events.MESSAGE, (messageData: ChatMessage) => {
+  //     if (messageData.channelId === channelId) {
+  //       dispatch({ type: EActionType.ADD_OR_UPDATE, payload: messageData });
+  //     }
+  //   });
+  // }, [socket, dispatch, channelId]);
 
-  const clearEvents = useCallback(() => {
-    socket.off(Events.MESSAGE);
-  }, [socket]);
+  // const clearEvents = useCallback(() => {
+  //   socket.off(Events.MESSAGE);
+  // }, [socket]);
 
-  useEffect(() => {
-    connected && setupEvents();
+  // useEffect(() => {
+  //   connected && setupEvents();
 
-    return () => {
-      if (socket && connected) {
-        clearEvents();
-      }
-    };
-  }, [connected, setupEvents, clearEvents]);
+  //   return () => {
+  //     if (socket && connected) {
+  //       clearEvents();
+  //     }
+  //   };
+  // }, [connected, setupEvents, clearEvents]);
 
-  useEffect(() => {
-    connected && socket.emit('join', channelId);
+  // useEffect(() => {
+  //   connected && socket.emit('join', channelId);
 
-    return () => {
-      socket.emit('leave', channelId);
-    };
-  }, [channelId, connected, socket]);
+  //   return () => {
+  //     socket.emit('leave', channelId);
+  //   };
+  // }, [channelId, connected, socket]);
 
   const handleChatMessage = async (
     value: string,

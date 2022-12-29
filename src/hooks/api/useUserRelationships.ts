@@ -8,10 +8,10 @@ import { useAuthToken } from './useAuthToken';
 import { User } from './useUserData';
 
 export enum ERelationshipType {
-  ACCEPTED = 'ACCEPTED',
-  SENT_PENDING = 'SENT_PENDING',
-  RECEIVED_PENDING = 'RECEIVED_PENDING',
-  DECLINED = 'DECLINED',
+  ACCEPTED = 'accepted',
+  SENT_PENDING = 'sent_pending',
+  RECEIVED_PENDING = 'received_pending',
+  DECLINED = 'declined',
 }
 
 export type TUserRelationship = {
