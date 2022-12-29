@@ -1,14 +1,12 @@
 import { Avatar, Box, Divider, Text } from '@chakra-ui/react';
 
-import {
-  CHAT_MESSAGES_RETRIEVE_USER_ID_REGEX,
-  CHAT_MESSAGES_SPLIT_REGEX,
-} from 'config/chat';
+import { CHAT_MESSAGES_SPLIT_REGEX } from 'config/chat';
 
 import {
   Attachment,
   ChatMessage as ChatMessageType,
 } from '../../hooks/api/useChatMessages';
+import { User } from '../../hooks/api/useUserData';
 
 import { formatDateIntl, formatDateRelative } from 'utils/date';
 
@@ -35,16 +33,19 @@ export const ChatMessage: React.FC<Props> = ({
 
     return parts.filter(String).map((part, i) => {
       if (CHAT_MESSAGES_SPLIT_REGEX.test(part)) {
-        // const computedId = part.match(CHAT_MESSAGES_RETRIEVE_USER_ID_REGEX);
-        const computedId = CHAT_MESSAGES_RETRIEVE_USER_ID_REGEX.exec(part)![3];
+        const id = part.replace('<@', '').replace('>', '');
 
-        const mention = mentions?.find(mention => {
-          if (computedId && computedId.length > 0) {
-            return mention.id === computedId[0];
-          }
+        let mention: User = {
+          id,
+          username: 'unknown',
+          avatar: '',
+        };
 
-          return false;
-        });
+        const desiredMention = mentions?.find(mention => mention.id === id);
+
+        if (desiredMention) {
+          mention = desiredMention;
+        }
 
         return (
           <ChatMention key={i} optimistic={optimistic} mention={mention} />
