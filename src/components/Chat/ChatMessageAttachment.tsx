@@ -10,6 +10,8 @@ import {
 } from '@chakra-ui/react';
 import { AiFillFile } from 'react-icons/ai';
 
+import { CDN_URL } from '../../config/cdn';
+
 import { Attachment } from '../../hooks/api/useChatMessages';
 import { useFileURL } from 'hooks/useFileURL';
 
@@ -31,7 +33,7 @@ export const ChatMessageAttachment: React.FC<Props> = ({
   );
   const { isOpen, onClose, onToggle } = useDisclosure();
 
-  const src = file instanceof File ? fileURL : file.url;
+  const src = file instanceof File ? fileURL : `${CDN_URL}/${file.url}`;
   const isImage = type.includes('image');
 
   return (
