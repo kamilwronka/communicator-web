@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
 import {
-  Avatar,
   Box,
   Button,
   Divider,
@@ -20,6 +19,8 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';
+
+import { Avatar } from 'components/Avatar';
 
 import { useAuthToken } from 'hooks/api/useAuthToken';
 import { TServerInvite, useServerInvites } from 'hooks/api/useServerInvites';

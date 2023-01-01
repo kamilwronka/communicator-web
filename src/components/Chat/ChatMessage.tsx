@@ -1,4 +1,4 @@
-import { Avatar, Box, Divider, Text } from '@chakra-ui/react';
+import { Box, Divider, Text } from '@chakra-ui/react';
 
 import { CHAT_MESSAGES_SPLIT_REGEX } from 'config/chat';
 
@@ -10,6 +10,7 @@ import { User } from '../../hooks/api/useUserData';
 
 import { formatDateIntl, formatDateRelative } from 'utils/date';
 
+import { Avatar } from '../Avatar';
 import { ChatMention } from './ChatMention';
 import { ChatMessageAttachment } from './ChatMessageAttachment';
 

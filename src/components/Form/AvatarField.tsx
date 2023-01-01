@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 
 import {
-  Avatar,
   Box,
   Circle,
   IconButton,
@@ -18,6 +17,8 @@ import { RiImageAddFill } from 'react-icons/ri';
 import { ALLOWED_FILE_TYPES, MAX_FILE_SIZE } from 'config/avatarUpload';
 
 import { useTranslation } from 'react-i18next';
+
+import { Avatar } from '../Avatar';
 
 type Props = {
   name: string;

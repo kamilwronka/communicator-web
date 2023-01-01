@@ -3,9 +3,7 @@ import { useEffect, useState } from 'react';
 import { Spinner } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import isEmpty from 'lodash/isEmpty';
-import isNil from 'lodash/isNil';
 
-import { useServers } from 'hooks/api/useServers';
 import { useUser } from 'hooks/api/useUserData';
 
 import { Box, BoxProps } from '@chakra-ui/layout';
@@ -15,18 +13,16 @@ const MotionBox = motion<BoxProps>(Box);
 export const Loading: React.FC = () => {
   const [isOpen, toggleLoadingScreen] = useState(true);
   const { data: user } = useUser();
-  const { data: servers } = useServers();
 
   const isUser = !isEmpty(user);
-  const hasServers = !isNil(servers);
 
   useEffect(() => {
-    if (isUser && hasServers) {
+    if (isUser) {
       toggleLoadingScreen(false);
     } else {
       toggleLoadingScreen(true);
     }
-  }, [isUser, hasServers]);
+  }, [isUser]);
 
   return (
     <AnimatePresence>

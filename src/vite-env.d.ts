@@ -5,6 +5,8 @@ interface ImportMetaEnv {
   VITE_API_URL: string;
   VITE_RTC_URL: string;
 
+  VITE_CDN_URL: string;
+
   VITE_AUTH0_AUDIENCE: string;
   VITE_AUTH0_CLIENT_ID: string;
   VITE_AUTH0_DOMAIN: string;

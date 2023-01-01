@@ -1,5 +1,7 @@
-import { Avatar, Box, Tooltip } from '@chakra-ui/react';
+import { Box, Tooltip } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+
+import { Avatar } from '../Avatar';
 
 export interface NavigationItemProps {
   name?: string | undefined;
@@ -28,7 +30,9 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
         transition={'0.3s background'}
       >
         <Tooltip label={name} placement="right" hasArrow>
-          <Avatar src={src} size="md" name={name} />
+          <Box>
+            <Avatar src={src} size="md" name={name} />
+          </Box>
         </Tooltip>
       </Box>
     </Link>
