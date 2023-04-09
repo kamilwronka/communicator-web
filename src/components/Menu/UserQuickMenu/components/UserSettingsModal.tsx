@@ -19,7 +19,7 @@ export const UserSettingsModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const { logout } = useAuth0();
 
   const handleLogout = () => {
-    logout();
+    logout({ returnTo: window.location.origin });
   };
 
   return (
