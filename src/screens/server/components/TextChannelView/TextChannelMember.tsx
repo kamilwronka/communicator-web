@@ -2,6 +2,8 @@ import { Flex, Text } from '@chakra-ui/react';
 
 import { AvatarWithStatus } from 'components/Avatar';
 
+import { CDN_URL } from '../../../../config/cdn';
+
 import { ServerMember } from 'hooks/api/useServerMembers';
 
 type Props = {
@@ -9,6 +11,10 @@ type Props = {
 };
 
 export const TextChannelMember: React.FC<Props> = ({ member }) => {
+  const avatarSrc = member.user.avatar
+    ? `${CDN_URL}/${member.user.avatar}`
+    : '';
+
   return (
     <Flex
       flexDir="row"
@@ -25,7 +31,7 @@ export const TextChannelMember: React.FC<Props> = ({ member }) => {
       <AvatarWithStatus
         status="online"
         name={member.user.username}
-        src={member.user.avatar}
+        src={avatarSrc}
       />
       <Text ml="4">{member.user.username}</Text>
     </Flex>

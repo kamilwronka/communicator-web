@@ -1,7 +1,5 @@
-import { Box, Tooltip } from '@chakra-ui/react';
+import { Avatar, Box, Tooltip } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-
-import { Avatar } from '../Avatar';
 
 export interface NavigationItemProps {
   name?: string | undefined;

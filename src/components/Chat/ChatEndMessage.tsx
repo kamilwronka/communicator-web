@@ -1,10 +1,8 @@
-import { Box, Circle, Icon, Text } from '@chakra-ui/react';
+import { Avatar, Box, Circle, Icon, Text } from '@chakra-ui/react';
 import { BsHash } from 'react-icons/bs';
 
 import { PrivateChannelType } from 'hooks/api/usePrivateChannels';
 import { ServerChannelType } from 'hooks/api/useServerChannels';
-
-import { Avatar } from '../Avatar';
 
 type Props = {
   type: ServerChannelType.TEXT | PrivateChannelType.PRIVATE;

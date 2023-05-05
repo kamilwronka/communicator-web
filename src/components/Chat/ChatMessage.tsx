@@ -1,5 +1,6 @@
-import { Box, Divider, Text } from '@chakra-ui/react';
+import { Avatar, Box, Divider, Text } from '@chakra-ui/react';
 
+import { CDN_URL } from '../../config/cdn';
 import { CHAT_MESSAGES_SPLIT_REGEX } from 'config/chat';
 
 import {
@@ -10,7 +11,6 @@ import { User } from '../../hooks/api/useUserData';
 
 import { formatDateIntl, formatDateRelative } from 'utils/date';
 
-import { Avatar } from '../Avatar';
 import { ChatMention } from './ChatMention';
 import { ChatMessageAttachment } from './ChatMessageAttachment';
 
@@ -67,6 +67,8 @@ export const ChatMessage: React.FC<Props> = ({
     });
   };
 
+  const avatarSrc = author?.avatar ? `${CDN_URL}/${author.avatar}` : '';
+
   return (
     <>
       {renderDivider && (
@@ -99,7 +101,7 @@ export const ChatMessage: React.FC<Props> = ({
       >
         <Box width="16" minWidth="16" display="flex" alignItems="flex-start">
           {(shouldRenderUserDetails || renderDivider) && (
-            <Avatar name={author?.username} src={author?.avatar} size="md" />
+            <Avatar name={author?.username} src={avatarSrc} size="md" />
           )}
         </Box>
         <Box display="flex" flexDir="column" w="full">

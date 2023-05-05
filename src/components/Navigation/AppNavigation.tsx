@@ -1,6 +1,8 @@
 import { Center, Divider, Flex, VStack } from '@chakra-ui/react';
 import { matchPath, useLocation } from 'react-router-dom';
 
+import { CDN_URL } from '../../config/cdn';
+
 import { useUser } from 'hooks/api/useUserData';
 
 import { AddServerButton } from './AddServerButton';
@@ -12,13 +14,15 @@ export const AppNavigation: React.FC = () => {
   const matchingPath = matchPath({ path: '/channels/@me/*' }, pathname);
   const { data: userData } = useUser();
 
+  const avatarSrc = userData?.avatar ? `${CDN_URL}/${userData?.avatar}` : '';
+
   return (
     <Flex width="24" minWidth="24" bg="gray.900" direction="column">
       <Flex h="16" alignItems="center" justifyContent="center">
         <NavigationItem
           href="/channels/@me"
           name={userData?.username}
-          src={userData?.avatar}
+          src={avatarSrc}
           isActive={matchingPath?.pathnameBase === '/channels/@me'}
         />
       </Flex>

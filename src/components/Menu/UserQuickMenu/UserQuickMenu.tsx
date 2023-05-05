@@ -5,10 +5,14 @@ import { ToggleSoundButton } from './components/ToggleSoundButton';
 import { ToggleUserSettingsModalButton } from './components/ToggleUserSettingsModalButton';
 import { AvatarWithStatus } from 'components/Avatar';
 
+import { CDN_URL } from '../../../config/cdn';
+
 import { useUser } from 'hooks/api/useUserData';
 
 export const UserQuickMenu: React.FC = props => {
   const { data: user } = useUser();
+
+  const avatarSrc = user?.avatar ? `${CDN_URL}/${user.avatar}` : '';
 
   return (
     <Flex
@@ -21,7 +25,7 @@ export const UserQuickMenu: React.FC = props => {
     >
       <HStack flex="1" spacing="3.5">
         <AvatarWithStatus
-          src={user?.avatar}
+          src={avatarSrc}
           name={user?.username}
           status="online"
         />
