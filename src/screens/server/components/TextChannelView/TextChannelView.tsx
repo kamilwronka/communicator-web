@@ -44,11 +44,17 @@ export const TextChannelView: React.FC = () => {
     useInfiniteChatMessages(channelId);
   // const { socket, connected } = useGateway();
 
+  const handleNewMessage = (message: ChatMessage) => {
+    console.log(channelId, message.channelId);
+    if (channelId === message.channelId) {
+      dispatch({ type: EActionType.ADD_OR_UPDATE, payload: message });
+    }
+  };
+
   useEventSubscriber<ChatMessage>(
     GatewayEvents.SERVER_MESSAGE_SEND,
     message => {
-      console.log('handling new message like a pro');
-      dispatch({ type: EActionType.ADD_OR_UPDATE, payload: message });
+      handleNewMessage(message);
     },
   );
 

@@ -1,5 +1,10 @@
+import { useEffect } from 'react';
+
 import { Box, Flex } from '@chakra-ui/react';
 
+import { GatewayEvents } from '../../../../enums/gatewayEvents';
+
+import { useGateway } from '../../../../hooks/api/useGateway';
 import {
   ServerChannel,
   ServerChannelType,
@@ -18,7 +23,8 @@ const flatArrayToTree = (items: any, id = null, link = 'parentId') =>
     }));
 
 export const ChannelNavigation: React.FC = () => {
-  const { data: channels } = useServerChannels();
+  const { data: channels, mutate } = useServerChannels();
+  const { socket, connected } = useGateway();
 
   const sortedTree = channels?.sort((a: any, b: any) => {
     if (a.type === ServerChannelType.PARENT) {
@@ -50,6 +56,29 @@ export const ChannelNavigation: React.FC = () => {
       return <ChannelNavigationItem channel={channel} key={channel.id} />;
     });
   };
+
+  useEffect(() => {
+    if (connected) {
+      socket.on(GatewayEvents.SERVER_CHANNEL_CREATE, payload => {
+        console.log(payload);
+        mutate(
+          data => {
+            // @ts-ignore
+            let isUpdated = false;
+            data?.forEach(channel => {
+              if (channel.id === payload.id) {
+                console.log(channel.id, payload.id);
+                isUpdated = true;
+              }
+            });
+            // @ts-ignore
+            return [...data, ...(isUpdated ? [] : [payload])];
+          },
+          { revalidate: false },
+        );
+      });
+    }
+  }, [connected, socket, mutate]);
 
   return (
     <Box overflowY="hidden" flex="1" px="1" py="2">
