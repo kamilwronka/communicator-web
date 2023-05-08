@@ -2,16 +2,19 @@ import React, {
   createContext,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
 
+import { emitter } from 'eventEmitter';
 import io, { Socket } from 'socket.io-client';
 
 import { GATEWAY_URL } from 'config/apiConfig';
 
 import { GatewayEvents } from 'enums/gatewayEvents';
 
+import { useServers } from '../hooks/api/useServers';
 import { useAuthToken } from 'hooks/api/useAuthToken';
 
 export type GatewayProviderValue = {
@@ -25,25 +28,41 @@ type Props = {
 
 export const GatewayProvider: React.FC<Props> = props => {
   const token = useAuthToken();
+  const servers = useServers();
   const socketRef = useRef(undefined as unknown as Socket);
 
   const [connected, setConnected] = useState(false);
+  const serverIds = useMemo(
+    () => (servers.data ? servers.data?.map(server => server.id) : null),
+    [servers.data],
+  );
 
   const setupBaseListeners = useCallback(() => {
-    if (token) {
+    if (token && serverIds) {
       socketRef.current.on(GatewayEvents.CONNECT, () => {
         socketRef.current.emit(GatewayEvents.IDENTIFY, { token });
       });
 
       socketRef.current.on(GatewayEvents.IDENTIFY, payload => {
+        console.log(payload);
+        socketRef.current.emit(GatewayEvents.SERVER_JOIN, { serverIds });
         setConnected(true);
+      });
+
+      socketRef.current.on(GatewayEvents.SERVER_JOIN, payload => {
+        console.log(payload);
+        // setConnected(true);
+        socketRef.current.on(GatewayEvents.SERVER_MESSAGE_SEND, payload => {
+          console.log('handling main event', payload);
+          emitter.emit(GatewayEvents.SERVER_MESSAGE_SEND, payload);
+        });
       });
 
       socketRef.current.on(GatewayEvents.DISCONNECT, () => {
         setConnected(false);
       });
     }
-  }, [token]);
+  }, [token, serverIds]);
 
   useEffect(() => {
     if (token) {
@@ -62,6 +81,10 @@ export const GatewayProvider: React.FC<Props> = props => {
 
   useEffect(() => {
     console.log('Connected to gateway: ', connected);
+
+    // socketRef.current.on(GatewayEvents.SERVER_MESSAGE_SEND, payload => {
+    //   console.log(payload);
+    // });
   }, [connected]);
 
   const value: GatewayProviderValue = {

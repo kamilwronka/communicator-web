@@ -11,6 +11,7 @@ import { ChatEndMessage } from 'components/Chat/ChatEndMessage';
 
 import { GatewayEvents } from 'enums/gatewayEvents';
 
+import { useEventSubscriber } from '../../../../hooks/useEventSubscriber';
 import { useAuthToken } from 'hooks/api/useAuthToken';
 import {
   ChatMessage,
@@ -41,7 +42,15 @@ export const TextChannelView: React.FC = () => {
   const { data: user } = useUser();
   const { finished, messages, loading, setPage, dispatch } =
     useInfiniteChatMessages(channelId);
-  const { socket, connected } = useGateway();
+  // const { socket, connected } = useGateway();
+
+  useEventSubscriber<ChatMessage>(
+    GatewayEvents.SERVER_MESSAGE_SEND,
+    message => {
+      console.log('handling new message like a pro');
+      dispatch({ type: EActionType.ADD_OR_UPDATE, payload: message });
+    },
+  );
 
   const handleChatMessage = async (
     value: string,
@@ -116,27 +125,29 @@ export const TextChannelView: React.FC = () => {
     setPage(page => page + 1);
   }, [setPage]);
 
-  const setupListeners = useCallback(() => {
-    socket.on(GatewayEvents.SERVER_MESSAGE_SEND, (messageData: ChatMessage) => {
-      dispatch({ type: EActionType.ADD_OR_UPDATE, payload: messageData });
-    });
-  }, [socket, dispatch]);
+  // const setupListeners = useCallback(() => {
+  //   console.log('listeners set up');
+  //   socket.on(GatewayEvents.SERVER_MESSAGE_SEND, (messageData: ChatMessage) => {
+  //     console.log('hejka', messageData);
+  //     dispatch({ type: EActionType.ADD_OR_UPDATE, payload: messageData });
+  //   });
+  // }, [socket, dispatch]);
 
-  const removeListeners = useCallback(() => {
-    socket.off(GatewayEvents.SERVER_MESSAGE_SEND);
-  }, [socket]);
+  // const removeListeners = useCallback(() => {
+  //   socket.off(GatewayEvents.SERVER_MESSAGE_SEND);
+  // }, [socket]);
 
-  useEffect(() => {
-    if (connected && socket && serverId) {
-      setupListeners();
-    }
+  // useEffect(() => {
+  //   if (connected && socket && serverId) {
+  //     setupListeners();
+  //   }
 
-    return () => {
-      if (socket && connected) {
-        removeListeners();
-      }
-    };
-  }, [connected, socket, serverId, removeListeners, setupListeners]);
+  //   return () => {
+  //     if (socket && connected) {
+  //       removeListeners();
+  //     }
+  //   };
+  // }, [connected, socket, serverId, removeListeners, setupListeners]);
 
   return (
     <Flex direction="row" height="full">
