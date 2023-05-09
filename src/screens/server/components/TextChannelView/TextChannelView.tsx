@@ -11,6 +11,7 @@ import { ChatEndMessage } from 'components/Chat/ChatEndMessage';
 
 import { GatewayEvents } from 'enums/gatewayEvents';
 
+import { useServerMembers } from '../../../../hooks/api/useServerMembers';
 import { useEventSubscriber } from '../../../../hooks/useEventSubscriber';
 import { useAuthToken } from 'hooks/api/useAuthToken';
 import {
@@ -18,13 +19,13 @@ import {
   EActionType,
   useInfiniteChatMessages,
 } from 'hooks/api/useChatMessages';
-import { useGateway } from 'hooks/api/useGateway';
 import {
   ServerChannelType,
   useServerChannels,
 } from 'hooks/api/useServerChannels';
 import { useUser } from 'hooks/api/useUserData';
 
+import { mapMembersToSuggestions } from '../../../../utils/mapToSuggestions';
 import { apiClient } from 'utils/apiClient';
 import { imageUploadApiClient } from 'utils/imageUploadApiClient';
 
@@ -42,6 +43,7 @@ export const TextChannelView: React.FC = () => {
   const { data: user } = useUser();
   const { finished, messages, loading, setPage, dispatch } =
     useInfiniteChatMessages(channelId);
+  const { data: members } = useServerMembers();
   // const { socket, connected } = useGateway();
 
   const handleNewMessage = (message: ChatMessage) => {
@@ -131,29 +133,7 @@ export const TextChannelView: React.FC = () => {
     setPage(page => page + 1);
   }, [setPage]);
 
-  // const setupListeners = useCallback(() => {
-  //   console.log('listeners set up');
-  //   socket.on(GatewayEvents.SERVER_MESSAGE_SEND, (messageData: ChatMessage) => {
-  //     console.log('hejka', messageData);
-  //     dispatch({ type: EActionType.ADD_OR_UPDATE, payload: messageData });
-  //   });
-  // }, [socket, dispatch]);
-
-  // const removeListeners = useCallback(() => {
-  //   socket.off(GatewayEvents.SERVER_MESSAGE_SEND);
-  // }, [socket]);
-
-  // useEffect(() => {
-  //   if (connected && socket && serverId) {
-  //     setupListeners();
-  //   }
-
-  //   return () => {
-  //     if (socket && connected) {
-  //       removeListeners();
-  //     }
-  //   };
-  // }, [connected, socket, serverId, removeListeners, setupListeners]);
+  const mentions = mapMembersToSuggestions(members);
 
   return (
     <Flex direction="row" height="full">
@@ -178,7 +158,7 @@ export const TextChannelView: React.FC = () => {
         <ChatInput
           onEnter={handleChatMessage}
           placeholder={`Message #${selectedChannel?.name}`}
-          // mentions={mentions}
+          mentions={mentions}
         />
       </Flex>
       <TextChannelMembers />

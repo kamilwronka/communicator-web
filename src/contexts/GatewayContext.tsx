@@ -14,6 +14,7 @@ import { GATEWAY_URL } from 'config/apiConfig';
 
 import { GatewayEvents } from 'enums/gatewayEvents';
 
+import { usePrivateChannels } from '../hooks/api/usePrivateChannels';
 import { useServers } from '../hooks/api/useServers';
 import { useAuthToken } from 'hooks/api/useAuthToken';
 
@@ -28,13 +29,18 @@ type Props = {
 
 export const GatewayProvider: React.FC<Props> = props => {
   const token = useAuthToken();
-  const servers = useServers();
+  const { data: servers } = useServers();
   const socketRef = useRef(undefined as unknown as Socket);
+  const { data: channels } = usePrivateChannels();
 
   const [connected, setConnected] = useState(false);
   const serverIds = useMemo(
-    () => (servers.data ? servers.data?.map(server => server.id) : null),
-    [servers.data],
+    () => (servers ? servers?.map(server => server.id) : null),
+    [servers],
+  );
+  const channelIds = useMemo(
+    () => (channels ? channels?.map(channel => channel.id) : null),
+    [channels],
   );
 
   const setupBaseListeners = useCallback(() => {
@@ -45,7 +51,10 @@ export const GatewayProvider: React.FC<Props> = props => {
 
       socketRef.current.on(GatewayEvents.IDENTIFY, payload => {
         console.log(payload);
-        socketRef.current.emit(GatewayEvents.SERVER_JOIN, { serverIds });
+        socketRef.current.emit(GatewayEvents.SERVER_JOIN, {
+          serverIds,
+          channelIds,
+        });
         setConnected(true);
       });
 
@@ -55,6 +64,11 @@ export const GatewayProvider: React.FC<Props> = props => {
         socketRef.current.on(GatewayEvents.SERVER_MESSAGE_SEND, payload => {
           console.log('handling main event', payload);
           emitter.emit(GatewayEvents.SERVER_MESSAGE_SEND, payload);
+        });
+
+        socketRef.current.on(GatewayEvents.DIRECT_MESSAGE_SEND, payload => {
+          console.log('handling main event', payload);
+          emitter.emit(GatewayEvents.DIRECT_MESSAGE_SEND, payload);
         });
       });
 

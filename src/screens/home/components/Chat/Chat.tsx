@@ -7,6 +7,9 @@ import { nanoid } from 'nanoid';
 import { ChatHeading, ChatInput, ChatMessagesContainer } from 'components/Chat';
 import { ChatEndMessage } from 'components/Chat/ChatEndMessage';
 
+import { GatewayEvents } from '../../../../enums/gatewayEvents';
+
+import { useEventSubscriber } from '../../../../hooks/useEventSubscriber';
 import { useAuthToken } from 'hooks/api/useAuthToken';
 import {
   ChatMessage,
@@ -42,37 +45,19 @@ export const Chat: React.FC = () => {
   const { setPage, finished, loading, messages, dispatch } =
     useInfiniteChatMessages(channelId);
 
-  // const { socket, connected } = useGateway();
+  const handleNewMessage = (message: ChatMessage) => {
+    console.log(channelId, message.channelId);
+    if (channelId === message.channelId) {
+      dispatch({ type: EActionType.ADD_OR_UPDATE, payload: message });
+    }
+  };
 
-  // const setupEvents = useCallback(() => {
-  //   socket.on(Events.MESSAGE, (messageData: ChatMessage) => {
-  //     if (messageData.channelId === channelId) {
-  //       dispatch({ type: EActionType.ADD_OR_UPDATE, payload: messageData });
-  //     }
-  //   });
-  // }, [socket, dispatch, channelId]);
-
-  // const clearEvents = useCallback(() => {
-  //   socket.off(Events.MESSAGE);
-  // }, [socket]);
-
-  // useEffect(() => {
-  //   connected && setupEvents();
-
-  //   return () => {
-  //     if (socket && connected) {
-  //       clearEvents();
-  //     }
-  //   };
-  // }, [connected, setupEvents, clearEvents]);
-
-  // useEffect(() => {
-  //   connected && socket.emit('join', channelId);
-
-  //   return () => {
-  //     socket.emit('leave', channelId);
-  //   };
-  // }, [channelId, connected, socket]);
+  useEventSubscriber<ChatMessage>(
+    GatewayEvents.DIRECT_MESSAGE_SEND,
+    message => {
+      handleNewMessage(message);
+    },
+  );
 
   const handleChatMessage = async (
     value: string,

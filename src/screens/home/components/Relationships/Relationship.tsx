@@ -2,10 +2,15 @@ import { useState } from 'react';
 
 import {
   Box,
+  Button,
   Divider,
   IconButton,
   ListItem,
   ListItemProps,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Stack,
   Text,
   Tooltip,
@@ -57,25 +62,39 @@ export const Relationship: React.FC<Props> = ({ relationship }) => {
     }
   };
 
+  // const handleDecline = async () => {
+
+  // }
+
+  const handleDelete = async () => {
+    await apiClient(`users/me/relationships/${relationship.id}`, {
+      token,
+      method: 'DELETE',
+    });
+  };
+
   const renderOptions = () => {
     if (relationship.type === ERelationshipType.ACCEPTED) {
       return (
         <>
-          <Tooltip label="Message" hasArrow placement="top">
-            <IconButton
-              variant="dark"
-              aria-label="Message"
-              icon={<BsChatDotsFill size="18px" />}
-            ></IconButton>
-          </Tooltip>
-          <Tooltip label="More" hasArrow placement="top">
-            <IconButton
-              bg="gray.800"
-              color="gray.300"
-              aria-label="Friend settings"
+          <IconButton
+            variant="dark"
+            aria-label="Message"
+            icon={<BsChatDotsFill size="18px" />}
+          ></IconButton>
+
+          <Menu>
+            <MenuButton
+              as={IconButton}
               icon={<HiDotsVertical size="18px" />}
-            ></IconButton>
-          </Tooltip>
+              variant="dark"
+            ></MenuButton>
+            <MenuList bg="gray.800" border="0">
+              <MenuItem bg="gray.800" onClick={handleDelete}>
+                Delete
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </>
       );
     }
@@ -116,7 +135,9 @@ export const Relationship: React.FC<Props> = ({ relationship }) => {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+
     if (relationship.type === ERelationshipType.ACCEPTED) {
       const channel = privateChannels?.find(privateChannel => {
         let userFound = false;
@@ -144,7 +165,7 @@ export const Relationship: React.FC<Props> = ({ relationship }) => {
       cursor="pointer"
       px="2"
       mt="0.5"
-      onClick={handleClick}
+      // onClick={handleClick}
       initial={{ opacity: 0.5 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0.5 }}
