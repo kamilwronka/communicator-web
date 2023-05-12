@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { AvatarField, TextField } from 'components/Form';
 
 import { useAuthToken } from 'hooks/api/useAuthToken';
-import { TServer, useServers } from 'hooks/api/useServers';
+import { Server, useServers } from 'hooks/api/useServers';
 import { useUser } from 'hooks/api/useUserData';
 
 import { apiClient } from 'utils/apiClient';
@@ -44,7 +44,7 @@ export const AddServerModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const handleSubmit = async (values: FormValues) => {
     setIsLoading(true);
     try {
-      const response = await apiClient<TServer>('/servers', {
+      const response = await apiClient<Server>('/servers', {
         method: 'POST',
         token,
         data: values,

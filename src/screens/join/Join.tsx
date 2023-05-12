@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAuthToken } from 'hooks/api/useAuthToken';
 import { useInvite } from 'hooks/api/useInvite';
-import { TServer, useServers } from 'hooks/api/useServers';
+import { Server, useServers } from 'hooks/api/useServers';
 
 import { apiClient } from 'utils/apiClient';
 
@@ -29,7 +29,7 @@ export const Join: React.FC = () => {
   const handleJoin = async () => {
     setLoading(true);
     try {
-      const response = await apiClient<TServer>(
+      const response = await apiClient<Server>(
         `/servers/${invite?.server.id}/members`,
         {
           method: 'POST',

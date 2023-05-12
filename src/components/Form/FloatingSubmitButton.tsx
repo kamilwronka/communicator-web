@@ -36,6 +36,7 @@ export const FloatingSubmitButton: React.FC<Props> = ({ containerRef }) => {
       borderRadius="xl"
       height="16"
       width="calc(100% - 24rem)"
+      // @ts-ignore
       ref={setPopperElement}
       zIndex={2000}
       boxShadow="xl"
