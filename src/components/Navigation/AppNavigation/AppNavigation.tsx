@@ -1,25 +1,27 @@
 import { Center, Divider, Flex, VStack } from '@chakra-ui/react';
+import { isEmpty } from 'lodash';
 import { matchPath, useLocation } from 'react-router-dom';
 
-import { CDN_URL } from '../../config/cdn';
+import { CDN_URL } from '../../../config/cdn';
 
+import { useServers } from '../../../hooks/api/useServers';
 import { useUser } from 'hooks/api/useUserData';
 
 import { AddServerButton } from './AddServerButton';
-import { NavigationItem } from './NavigationItem';
-import { ServerNavigation } from './ServerNavigation';
+import { AppNavigationItem } from './AppNavigationItem';
 
 export const AppNavigation: React.FC = () => {
   const { pathname } = useLocation();
   const matchingPath = matchPath({ path: '/channels/@me/*' }, pathname);
   const { data: userData } = useUser();
+  const { data: servers } = useServers();
 
   const avatarSrc = userData?.avatar ? `${CDN_URL}/${userData?.avatar}` : '';
 
   return (
     <Flex width="24" minWidth="24" bg="gray.900" direction="column">
       <Flex h="16" alignItems="center" justifyContent="center">
-        <NavigationItem
+        <AppNavigationItem
           href="/channels/@me"
           name={userData?.username}
           src={avatarSrc}
@@ -47,7 +49,23 @@ export const AppNavigation: React.FC = () => {
           },
         }}
       >
-        <ServerNavigation />
+        {servers?.map(server => {
+          const iconSrc = server.icon ? `${CDN_URL}/${server.icon}` : '';
+
+          return (
+            <AppNavigationItem
+              key={server.id}
+              id={server.id}
+              name={server.name}
+              src={iconSrc}
+            />
+          );
+        })}
+        {!isEmpty(servers) && (
+          <Center mt="2">
+            <Divider w="12" />
+          </Center>
+        )}
       </VStack>
       <Flex h="16" alignItems="center" justifyContent="center">
         <AddServerButton />

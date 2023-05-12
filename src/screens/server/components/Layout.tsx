@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { CreateCategoryModal } from './CreateCategoryModal/CreateCategoryModal';
 import { CreateChannelModal } from './CreateChannelModal/CreateChannelModal';
 import { InviteModal } from './InviteModal/InviteModal';
+import { ServerSettingsModal } from './ServerSettingsModal/ServerSettingsModal';
 import { Sidebar } from './Sidebar';
 
 export const Layout: React.FC = () => {
@@ -18,6 +19,7 @@ export const Layout: React.FC = () => {
       <CreateCategoryModal />
       <CreateChannelModal />
       <InviteModal />
+      <ServerSettingsModal />
     </>
   );
 };

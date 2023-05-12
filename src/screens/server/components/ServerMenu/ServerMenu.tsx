@@ -1,12 +1,16 @@
-import { Flex, Menu, MenuList } from '@chakra-ui/react';
+import { Divider, Flex, Menu, MenuList } from '@chakra-ui/react';
 import { emitter } from 'eventEmitter';
-import { AiOutlineFolderAdd, AiOutlineUserAdd } from 'react-icons/ai';
+import {
+  AiFillSetting,
+  AiOutlineFolderAdd,
+  AiOutlineUserAdd,
+} from 'react-icons/ai';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 
 import { ServerEvents } from 'screens/server/emitterEvents';
 
-import ServerSettingsMenuItem from './ServerSettingsMenuItem';
-import ServerSettingsToggleButton from './ServerSettingsToggleButton';
+import ServerSettingsMenuItem from './ServerMenuItem';
+import ServerSettingsToggleButton from './ServerMenuToggleButton';
 
 const ServerSettingsMenu = () => {
   return (
@@ -16,7 +20,7 @@ const ServerSettingsMenu = () => {
 
         <MenuList
           shadow="lg"
-          py="4"
+          py="1"
           color="white"
           px="3"
           bg="gray.700"
@@ -41,6 +45,14 @@ const ServerSettingsMenu = () => {
             icon={<AiOutlineFolderAdd fontSize="1.2rem" />}
             onClick={() =>
               emitter.emit(ServerEvents.TOGGLE_CREATE_CATEGORY_MODAL)
+            }
+          />
+          <Divider />
+          <ServerSettingsMenuItem
+            label="Server settings"
+            icon={<AiFillSetting fontSize="1.2rem" />}
+            onClick={() =>
+              emitter.emit(ServerEvents.TOGGLE_SERVER_SETTINGS_MODAL)
             }
           />
         </MenuList>

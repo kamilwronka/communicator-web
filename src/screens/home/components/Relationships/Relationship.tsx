@@ -2,11 +2,9 @@ import { useState } from 'react';
 
 import {
   Box,
-  Button,
   Divider,
   IconButton,
   ListItem,
-  ListItemProps,
   Menu,
   MenuButton,
   MenuItem,
@@ -37,7 +35,7 @@ type Props = {
   relationship: TUserRelationship;
 };
 
-const MotionListItem = motion<ListItemProps>(ListItem);
+const MotionListItem = motion(ListItem);
 
 export const Relationship: React.FC<Props> = ({ relationship }) => {
   const navigate = useNavigate();

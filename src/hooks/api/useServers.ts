@@ -8,7 +8,7 @@ import { apiClient } from 'utils/apiClient';
 import { useAuthToken } from './useAuthToken';
 import { ServerChannel } from './useServerChannels';
 
-export type TServer = {
+export type Server = {
   id: string;
   name: string;
   owner_id: string;
@@ -28,7 +28,7 @@ export const useServers = () => {
   const { serverId } = useParams();
 
   const fetcher = useCallback(
-    () => apiClient<TServer[]>('/servers', { method: 'GET', token }),
+    () => apiClient<Server[]>('/servers', { method: 'GET', token }),
     [token],
   );
 

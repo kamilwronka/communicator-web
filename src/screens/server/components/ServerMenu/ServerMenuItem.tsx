@@ -13,7 +13,9 @@ const ServerSettingsMenuItem: React.FC<Props> = ({ label, onClick, icon }) => {
     <MenuItem
       display="flex"
       justifyContent="space-between"
-      p="2"
+      py="1"
+      px="2"
+      my="0.5"
       _hover={{ bg: 'gray.600' }}
       _focus={{ bg: 'gray.500' }}
       rounded="md"

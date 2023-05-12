@@ -3,7 +3,7 @@ import { Divider, Flex } from '@chakra-ui/react';
 import { UserQuickMenu } from 'components';
 
 import { ChannelNavigation } from './ChannelNavigation/ChannelNavigation';
-import ServerSettingsMenu from './ServerSettingsMenu/ServerSettingsMenu';
+import ServerSettingsMenu from './ServerMenu/ServerMenu';
 
 export const Sidebar: React.FC = () => {
   return (
