@@ -5,8 +5,8 @@ import {
   intlFormat,
   isToday,
 } from 'date-fns';
-import {utcToZonedTime, zonedTimeToUtc} from 'date-fns-tz';
-import {enUS} from 'date-fns/locale';
+import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
+import { enUS } from 'date-fns/locale';
 
 export const getTimezone = () => {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -33,7 +33,7 @@ export const formatDateRelative = (date: string) => {
   const currentDate = Date.now();
   const currentDateUTC = zonedTimeToUtc(currentDate, getTimezone());
 
-  return formatRelative(new Date(date), currentDateUTC, {locale: enUS});
+  return formatRelative(new Date(date), currentDateUTC, { locale: enUS });
 };
 
 export const formatDateIntl = (date: string) => {
@@ -41,8 +41,8 @@ export const formatDateIntl = (date: string) => {
 
   return intlFormat(
     zonedTime,
-    {month: 'long', day: '2-digit', year: 'numeric'},
-    {locale: 'en-GB'},
+    { month: 'long', day: '2-digit', year: 'numeric' },
+    { locale: 'en-GB' },
   );
 };
 
