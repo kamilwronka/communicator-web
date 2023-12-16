@@ -13,4 +13,4 @@ export const CHAT_MESSAGES_ALLOWED_ATTACHMENT_MIME_TYPES = [
   'video/x-matroska',
   'video/mp4',
 ];
-export const CHAT_MESSAGES_MAX_ATTACHMENT_SIZE = 50000000; //50mb
+export const CHAT_MESSAGES_MAX_ATTACHMENT_SIZE = 1000000000; //50mb
